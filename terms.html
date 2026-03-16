@@ -228,7 +228,7 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-content]').forEach(el => {
     const key = el.dataset.i18nContent;
     if (t[key]) {
-      el.innerHTML = t[key].replace(/\n/g, '<br>');
+      el.innerHTML = t[key].replace(/\\n/g, '<br>');
     }
   });
 }
