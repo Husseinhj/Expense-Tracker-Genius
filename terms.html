@@ -224,7 +224,6 @@ function setLang(lang) {
     }
   });
   
-  // Update content sections (convert \n to <br> for proper line breaks)
   // Update content sections (convert literal \n to real newlines; CSS pre-line handles rendering)
   document.querySelectorAll('[data-i18n-content]').forEach(el => {
     const key = el.dataset.i18nContent;
