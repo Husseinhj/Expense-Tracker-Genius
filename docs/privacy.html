@@ -245,11 +245,11 @@ function setLang(lang) {
     }
   });
   
-  // Update content sections
+  // Update content sections (convert literal \n to real newlines; CSS pre-line handles rendering)
   document.querySelectorAll('[data-i18n-content]').forEach(el => {
     const key = el.dataset.i18nContent;
     if (t[key]) {
-      el.textContent = t[key];
+      el.textContent = t[key].split('\\n').join('\n');
     }
   });
 }
