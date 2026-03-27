@@ -533,83 +533,17 @@
       font-size: 13px;
     }
 
-    /* ===== Travel Card Mockup ===== */
-    .travel-card-mockup {
-      width: 300px;
-      padding: 28px 24px;
-      flex-shrink: 0;
-    }
-    .travel-card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .travel-flag {
-      font-size: 28px;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ===== Travel Mac Screenshot ===== */
+    .travel-mac-frame {
       border-radius: 12px;
-      background: rgba(124,58,237,0.15);
-    }
-    .travel-dest {
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .travel-dest-sub {
-      font-size: 13px;
-      color: var(--text-tertiary);
-    }
-    .travel-total {
-      font-size: 32px;
-      font-weight: 800;
-      margin: 16px 0 4px;
-    }
-    .travel-total .gradient-text {
-      font-size: 32px;
-    }
-    .travel-days {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 20px;
-    }
-    .travel-categories {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .travel-cat {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-    }
-    .travel-cat-name {
-      color: var(--text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .travel-cat-amount {
-      font-weight: 600;
-    }
-    .travel-bar {
-      height: 4px;
-      border-radius: 2px;
-      background: rgba(255,255,255,0.08);
-      margin-top: 4px;
       overflow: hidden;
+      border: 2px solid var(--glass-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--brand-glow);
+      max-width: 520px;
     }
-    @media (prefers-color-scheme: light) {
-      .travel-bar { background: rgba(0,0,0,0.06); }
-    }
-    .travel-bar-fill {
-      height: 100%;
-      border-radius: 2px;
-      background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+    .travel-mac-frame img {
+      width: 100%;
+      display: block;
     }
     .try-appclip {
       display: inline-flex;
@@ -768,36 +702,8 @@
     <div class="container">
       <div class="feature-row">
         <div class="feature-image fade-in-left">
-          <div class="travel-card-mockup glass-elevated">
-            <div class="travel-card-header">
-              <div class="travel-flag">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-              </div>
-              <div>
-                <div class="travel-dest">Japan</div>
-                <div class="travel-dest-sub">7-day trip estimate</div>
-              </div>
-            </div>
-            <div class="travel-total"><span class="gradient-text">$1,127</span></div>
-            <div class="travel-days">$161 / day avg</div>
-            <div class="travel-categories">
-              <div>
-                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Accommodation</span><span class="travel-cat-amount">$490</span></div>
-                <div class="travel-bar"><div class="travel-bar-fill" style="width:43%"></div></div>
-              </div>
-              <div>
-                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Food</span><span class="travel-cat-amount">$280</span></div>
-                <div class="travel-bar"><div class="travel-bar-fill" style="width:25%"></div></div>
-              </div>
-              <div>
-                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 5 20 16 16 13 16 8"/></svg> Activities</span><span class="travel-cat-amount">$210</span></div>
-                <div class="travel-bar"><div class="travel-bar-fill" style="width:19%"></div></div>
-              </div>
-              <div>
-                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg> Transport</span><span class="travel-cat-amount">$147</span></div>
-                <div class="travel-bar"><div class="travel-bar-fill" style="width:13%"></div></div>
-              </div>
-            </div>
+          <div class="mac-frame travel-mac-frame">
+            <img src="screenshots/07_Mac_Travel.png" alt="Travel Budget Planner on Mac showing Brussels trip with budget summary, map, and weather" loading="lazy">
           </div>
         </div>
         <div class="feature-text fade-in-right">
