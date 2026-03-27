@@ -3,116 +3,996 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expense Tracker Genius</title>
-  <meta name="description" content="Smart expense tracking with AI insights, receipt scanning, budgets, and more. Privacy-first — no servers, all on-device.">
+  <meta name="apple-itunes-app" content="app-id=6760190294">
+  <title>Expense Tracker Genius — Smart AI Expense Tracking</title>
+  <meta name="description" content="Smart expense tracking with AI insights, receipt scanning, budgets, and more. Privacy-first — no servers, all on-device. Available on iPhone, iPad, Mac, and Apple Watch.">
+  <meta name="theme-color" content="#0C0C16">
   <style>
+    /* ===== CSS Variables ===== */
     :root {
       --brand-primary: #7C3AED;
       --brand-secondary: #A855F7;
+      --brand-glow: rgba(124, 58, 237, 0.4);
       --bg-primary: #0C0C16;
-      --bg-card: rgba(255,255,255,0.04);
-      --border-card: rgba(255,255,255,0.08);
+      --bg-secondary: #1A1A2E;
       --text-primary: #F1F5F9;
       --text-secondary: #94A3B8;
       --text-tertiary: #64748B;
-      --radius: 16px;
+      --glass-bg: rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-shadow: rgba(0,0,0,0.3);
+      --glass-elevated-bg: rgba(255,255,255,0.12);
+      --glass-elevated-border: rgba(255,255,255,0.15);
     }
+
     @media (prefers-color-scheme: light) {
       :root {
         --bg-primary: #F5F5FA;
-        --bg-card: rgba(0,0,0,0.02);
-        --border-card: rgba(0,0,0,0.08);
+        --bg-secondary: #FFFFFF;
         --text-primary: #1E1B4B;
         --text-secondary: #64748B;
         --text-tertiary: #94A3B8;
+        --glass-bg: rgba(255,255,255,0.65);
+        --glass-border: rgba(0,0,0,0.06);
+        --glass-shadow: rgba(124,58,237,0.08);
+        --glass-elevated-bg: rgba(255,255,255,0.80);
+        --glass-elevated-border: rgba(0,0,0,0.08);
+        --brand-glow: rgba(124, 58, 237, 0.15);
       }
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== Glass Morphism ===== */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px var(--glass-shadow);
+    }
+    .glass-elevated {
+      background: var(--glass-elevated-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid var(--glass-elevated-border);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px var(--glass-shadow);
+    }
+
+    /* ===== Layout ===== */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* ===== Scroll Animations ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== Typography ===== */
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-title svg {
+      flex-shrink: 0;
+    }
+    .section-desc {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== Phone Frame ===== */
+    .phone-frame {
+      position: relative;
+      width: 280px;
+      border-radius: 40px;
+      border: 4px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 80px var(--brand-glow);
+      flex-shrink: 0;
+    }
+    @media (prefers-color-scheme: light) {
+      .phone-frame {
+        border-color: rgba(0,0,0,0.10);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 80px var(--brand-glow);
+      }
+    }
+    .phone-frame img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ===== Feature Pills ===== */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+    }
+    .pill svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ===== Feature Section Layout ===== */
+    .feature-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+    .feature-text {
+      flex: 1;
+    }
+    .feature-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    @media (min-width: 769px) {
+      .feature-row {
+        flex-direction: row;
+        align-items: center;
+        gap: 64px;
+      }
+      .feature-row.reverse {
+        flex-direction: row-reverse;
+      }
+      .section-title {
+        font-size: 42px;
+      }
+    }
+
+    /* ===== App Store Buttons ===== */
+    .store-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--glass-elevated-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-elevated-border);
+      box-shadow: 0 4px 20px var(--glass-shadow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .store-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--brand-glow);
+      border-color: var(--brand-primary);
+    }
+    .store-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .store-btn-text {
+      text-align: left;
+      line-height: 1.2;
+    }
+    .store-btn-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      display: block;
+    }
+
+    /* ========================================
+       SECTION 1: HERO
+       ======================================== */
+    .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
     }
-    .container { max-width: 480px; padding: 40px 24px; text-align: center; }
-    .icon { font-size: 72px; margin-bottom: 20px; }
-    h1 {
-      font-size: 32px; font-weight: 700; margin-bottom: 8px;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(168,85,247,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 80% 60%, rgba(124,58,237,0.10) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    @media (prefers-color-scheme: light) {
+      .hero::before {
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.10) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 20% 80%, rgba(168,85,247,0.06) 0%, transparent 50%);
+      }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+    .hero-icon {
+      width: 128px;
+      height: 128px;
+      border-radius: 28px;
+      margin: 0 auto 32px;
+      box-shadow: 0 12px 40px rgba(124,58,237,0.3);
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 769px) {
+      .hero h1 { font-size: 64px; }
+    }
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .hero .store-buttons {
+      justify-content: center;
+    }
+    .hero-phone {
+      margin: 56px auto 0;
+      width: 280px;
+    }
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    /* ========================================
+       SECTION 5: EVERY PLATFORM
+       ======================================== */
+    .platforms {
+      text-align: center;
+      overflow: hidden;
+    }
+    .platforms .section-title {
+      justify-content: center;
+      font-size: 42px;
+    }
+    .platforms .section-desc {
+      margin: 0 auto 56px;
+      text-align: center;
+      max-width: 580px;
+    }
+    .device-showcase {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+    .device-row-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .device-ipad {
+      width: 340px;
+      border-radius: 20px;
+      border: 3px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+      transform: perspective(800px) rotateY(8deg);
+    }
+    @media (prefers-color-scheme: light) {
+      .device-ipad {
+        border-color: rgba(0,0,0,0.08);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+      }
+    }
+    .device-iphone {
+      width: 240px;
+      border-radius: 36px;
+      border: 4px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 60px var(--brand-glow);
+      z-index: 2;
+    }
+    @media (prefers-color-scheme: light) {
+      .device-iphone {
+        border-color: rgba(0,0,0,0.10);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 60px var(--brand-glow);
+      }
+    }
+    .device-watch {
+      width: 100px;
+      border-radius: 24px;
+      border: 3px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    @media (prefers-color-scheme: light) {
+      .device-watch {
+        border-color: rgba(0,0,0,0.08);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+    }
+    .device-mac {
+      width: 520px;
+      max-width: 90vw;
+      border-radius: 12px;
+      border: 3px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    @media (prefers-color-scheme: light) {
+      .device-mac {
+        border-color: rgba(0,0,0,0.08);
+        box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+      }
+    }
+    .device-mac img, .device-ipad img, .device-iphone img, .device-watch img {
+      width: 100%;
+      display: block;
+    }
+    .platform-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    /* ========================================
+       SECTION 6: PRIVACY
+       ======================================== */
+    .privacy-section {
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(124,58,237,0.12) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    }
+    .privacy-section .section-title {
+      justify-content: center;
+      text-align: center;
+    }
+    .privacy-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .privacy-icon svg {
+      filter: drop-shadow(0 0 24px var(--brand-glow));
+    }
+    .privacy-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (min-width: 769px) {
+      .privacy-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .privacy-card {
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .privacy-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .privacy-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .privacy-card-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(168,85,247,0.1));
+    }
+
+    /* ========================================
+       SECTION 7: CTA + FOOTER
+       ======================================== */
+    .cta-section {
+      text-align: center;
+      padding: 100px 0 60px;
+    }
+    .cta-section h2 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .cta-section .store-buttons {
+      justify-content: center;
+      margin-top: 36px;
+    }
+    .cta-extras {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+    .cta-extras a {
+      color: var(--brand-secondary);
+      transition: color 0.2s;
+    }
+    .cta-extras a:hover {
+      color: var(--brand-primary);
+    }
+    .cta-watch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-watch svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .footer-links a {
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--brand-secondary);
+    }
+    .footer-copy {
+      color: var(--text-tertiary);
+      font-size: 13px;
+    }
+
+    /* ===== Travel Card Mockup ===== */
+    .travel-card-mockup {
+      width: 300px;
+      padding: 28px 24px;
+      flex-shrink: 0;
+    }
+    .travel-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .travel-flag {
+      font-size: 28px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(124,58,237,0.15);
+    }
+    .travel-dest {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .travel-dest-sub {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+    .travel-total {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 16px 0 4px;
+    }
+    .travel-total .gradient-text {
+      font-size: 32px;
+    }
+    .travel-days {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .travel-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .travel-cat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .travel-cat-name {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .travel-cat-amount {
+      font-weight: 600;
+    }
+    .travel-bar {
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 4px;
+      overflow: hidden;
+    }
+    @media (prefers-color-scheme: light) {
+      .travel-bar { background: rgba(0,0,0,0.06); }
+    }
+    .travel-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+    }
+    .try-appclip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
       background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px var(--brand-glow);
     }
-    .tagline { color: var(--text-secondary); font-size: 16px; margin-bottom: 36px; }
-    .links { display: flex; flex-direction: column; gap: 12px; }
-    .link-card {
-      display: flex; align-items: center; gap: 14px;
-      padding: 16px 20px; border-radius: var(--radius);
-      background: var(--bg-card); border: 1px solid var(--border-card);
-      text-decoration: none; color: var(--text-primary);
-      transition: all 0.2s;
+    .try-appclip:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--brand-glow);
     }
-    .link-card:hover {
-      border-color: var(--brand-primary);
-      transform: translateY(-1px);
+    .try-appclip svg {
+      width: 18px;
+      height: 18px;
     }
-    .link-icon { font-size: 24px; width: 32px; text-align: center; }
-    .link-text { text-align: left; }
-    .link-title { font-size: 15px; font-weight: 600; }
-    .link-desc { font-size: 13px; color: var(--text-tertiary); }
-    .footer { margin-top: 40px; color: var(--text-tertiary); font-size: 13px; }
-    .footer a { color: var(--brand-primary); text-decoration: none; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+      .section-title { font-size: 28px; }
+      .section-desc { font-size: 16px; }
+      .hero h1 { font-size: 36px; }
+      .hero-subtitle { font-size: 17px; }
+      .hero-phone { width: 240px; }
+      .phone-frame { width: 240px; }
+      .device-ipad { width: 240px; }
+      .device-iphone { width: 180px; }
+      .device-mac { width: 320px; }
+      .device-watch { width: 80px; }
+      .cta-section h2 { font-size: 32px; }
+      .store-btn { padding: 12px 20px; font-size: 14px; }
+      .travel-card-mockup { width: 270px; }
+      .platforms .section-title { font-size: 32px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="icon">💰</div>
-    <h1>Expense Tracker Genius</h1>
-    <p class="tagline">Smart expense tracking. Privacy-first.</p>
-    <div class="links">
-      <a href="travel.html" class="link-card">
-        <span class="link-icon">✈️</span>
-        <div class="link-text">
-          <div class="link-title">Travel Budget Planner</div>
-          <div class="link-desc">Estimate your trip costs instantly</div>
+
+  <!-- ========== SECTION 1: HERO ========== -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="screenshots/AppIcon.png" alt="Expense Tracker Genius app icon" class="hero-icon fade-in" width="128" height="128">
+      <h1 class="fade-in"><span class="gradient-text">Expense Tracker Genius</span></h1>
+      <p class="hero-subtitle fade-in">Smart expense tracking with AI insights. Privacy-first — your data never leaves your device.</p>
+
+      <div class="store-buttons fade-in">
+        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-btn-label">Download on the</span>
+            App Store
+          </div>
+        </a>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the Mac App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-btn-label">Download on the</span>
+            Mac App Store
+          </div>
+        </a>
+      </div>
+
+      <div class="hero-phone fade-in">
+        <div class="phone-frame">
+          <img src="screenshots/01_iPhone_6.9_Dashboard.png" alt="Expense Tracker Genius dashboard showing expenses overview" width="1320" height="2868">
         </div>
-      </a>
-      <a href="privacy.html" class="link-card">
-        <span class="link-icon">🔒</span>
-        <div class="link-text">
-          <div class="link-title">Privacy Policy</div>
-          <div class="link-desc">How we protect your data</div>
-        </div>
-      </a>
-      <a href="terms.html" class="link-card">
-        <span class="link-icon">📄</span>
-        <div class="link-text">
-          <div class="link-title">Terms of Use</div>
-          <div class="link-desc">Usage terms and conditions</div>
-        </div>
-      </a>
-      <a href="accessibility.html" class="link-card">
-        <span class="link-icon">♿</span>
-        <div class="link-text">
-          <div class="link-title">Accessibility</div>
-          <div class="link-desc">How we support assistive technologies</div>
-        </div>
-      </a>
-      <a href="mailto:hussein.juybari@gmail.com" class="link-card">
-        <span class="link-icon">✉️</span>
-        <div class="link-text">
-          <div class="link-title">Support</div>
-          <div class="link-desc">hussein.juybari@gmail.com</div>
-        </div>
-      </a>
+      </div>
+
+      <div class="hero-pills fade-in">
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Privacy-first
+        </span>
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.57-3.25 3.92L12 10l-.75-.08C9.4 9.57 8 7.95 8 6a4 4 0 0 1 4-4z"/><path d="M9 12h6l3 10H6l3-10z"/></svg>
+          AI-powered
+        </span>
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+          12 Languages
+        </span>
+      </div>
     </div>
-    <div class="footer">
-      © 2026 Expense Tracker Genius
+  </section>
+
+  <!-- ========== SECTION 2: AI-POWERED INSIGHTS ========== -->
+  <section>
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-image fade-in-left">
+          <div class="phone-frame">
+            <img src="screenshots/05_iPhone_6.9_AIInsight.png" alt="AI-powered spending insights and analysis" width="1320" height="2868">
+          </div>
+        </div>
+        <div class="feature-text fade-in-right">
+          <h2 class="section-title">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.09 3.26L16 6l-2.91.74L12 10l-1.09-3.26L8 6l2.91-.74L12 2z"/><path d="M5 15l.68 2.04L8 17.72l-1.82.46L5 20.22l-.68-2.04L2 17.72l1.82-.46L5 15z"/><path d="M19 11l.68 2.04L22 13.72l-1.82.46L19 16.22l-.68-2.04L16 13.72l1.82-.46L19 11z"/></svg>
+            <span class="gradient-text">AI-Powered Insights</span>
+          </h2>
+          <p class="section-desc">Scan receipts with your camera and let AI categorize expenses automatically. Get intelligent spending insights and predictions — all processed on-device with Apple Intelligence.</p>
+          <div class="pills">
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg>
+              Receipt Scanning
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Smart Categories
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Spending Predictions
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ========== SECTION 3: SMART TRANSACTIONS ========== -->
+  <section>
+    <div class="container">
+      <div class="feature-row reverse">
+        <div class="feature-image fade-in-right">
+          <div class="phone-frame">
+            <img src="screenshots/06_iPhone_6.9_AddTransaction.png" alt="Add transaction screen with receipt photo and currency selection" width="1320" height="2868">
+          </div>
+        </div>
+        <div class="feature-text fade-in-left">
+          <h2 class="section-title">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span class="gradient-text">Smart Transactions</span>
+          </h2>
+          <p class="section-desc">Capture receipts, attach photos, and track every expense with precision. Multi-currency support with live exchange rates from the European Central Bank.</p>
+          <div class="pills">
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Photo Receipts
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              Auto-Categorize
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Multi-Currency
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 4: TRAVEL BUDGET PLANNER ========== -->
+  <section>
+    <div class="container">
+      <div class="feature-row">
+        <div class="feature-image fade-in-left">
+          <div class="travel-card-mockup glass-elevated">
+            <div class="travel-card-header">
+              <div class="travel-flag">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <div>
+                <div class="travel-dest">Japan</div>
+                <div class="travel-dest-sub">7-day trip estimate</div>
+              </div>
+            </div>
+            <div class="travel-total"><span class="gradient-text">$1,127</span></div>
+            <div class="travel-days">$161 / day avg</div>
+            <div class="travel-categories">
+              <div>
+                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Accommodation</span><span class="travel-cat-amount">$490</span></div>
+                <div class="travel-bar"><div class="travel-bar-fill" style="width:43%"></div></div>
+              </div>
+              <div>
+                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Food</span><span class="travel-cat-amount">$280</span></div>
+                <div class="travel-bar"><div class="travel-bar-fill" style="width:25%"></div></div>
+              </div>
+              <div>
+                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 5 20 16 16 13 16 8"/></svg> Activities</span><span class="travel-cat-amount">$210</span></div>
+                <div class="travel-bar"><div class="travel-bar-fill" style="width:19%"></div></div>
+              </div>
+              <div>
+                <div class="travel-cat"><span class="travel-cat-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="22" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg> Transport</span><span class="travel-cat-amount">$147</span></div>
+                <div class="travel-bar"><div class="travel-bar-fill" style="width:13%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="feature-text fade-in-right">
+          <h2 class="section-title">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            <span class="gradient-text">Travel Budget Planner</span>
+          </h2>
+          <p class="section-desc">Plan your next trip with budget estimates for 25+ destinations. Track expenses on the go and compare with your planned budget. Try it instantly with our App Clip — no download needed.</p>
+          <a href="travel.html" class="try-appclip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+            Try App Clip
+          </a>
+          <div class="pills" style="margin-top:20px;">
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              25+ Destinations
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Day-by-Day
+            </span>
+            <span class="pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Instant App Clip
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 5: EVERY APPLE PLATFORM ========== -->
+  <section class="platforms">
+    <div class="container">
+      <h2 class="section-title fade-in"><span class="gradient-text">Available Everywhere</span></h2>
+      <p class="section-desc fade-in">iPhone, iPad, Mac, and Apple Watch — your finances sync seamlessly across all your devices.</p>
+      <div class="device-showcase fade-in">
+        <div class="device-row-top">
+          <div class="device-ipad">
+            <img src="screenshots/01_iPad_13_Dashboard.png" alt="Expense Tracker Genius on iPad showing full dashboard" width="2048" height="2732">
+          </div>
+          <div class="device-iphone">
+            <img src="screenshots/01_iPhone_6.9_Dashboard.png" alt="Expense Tracker Genius on iPhone" width="1320" height="2868">
+          </div>
+          <div class="device-watch">
+            <img src="screenshots/01_Watch_46mm_TodaySummary.png" alt="Expense Tracker Genius on Apple Watch showing today summary" width="396" height="484">
+          </div>
+        </div>
+        <div class="device-mac">
+          <img src="screenshots/01_Mac_Dashboard.png" alt="Expense Tracker Genius on Mac showing full desktop experience" width="2880" height="1800">
+        </div>
+      </div>
+      <div class="platform-pills fade-in">
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          iPhone
+        </span>
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          iPad
+        </span>
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Mac
+        </span>
+        <span class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><polyline points="12 9 12 12 13.5 13.5"/><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"/></svg>
+          Apple Watch
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 6: PRIVACY & SECURITY ========== -->
+  <section class="privacy-section">
+    <div class="container">
+      <div class="privacy-icon fade-in">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <h2 class="section-title fade-in" style="justify-content:center;"><span class="gradient-text">Privacy-First. Always.</span></h2>
+      <div class="privacy-cards">
+        <div class="privacy-card glass fade-in">
+          <div class="privacy-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>On-Device Processing</h3>
+          <p>All data stays on your device. No servers, no tracking, no accounts required.</p>
+        </div>
+        <div class="privacy-card glass fade-in">
+          <div class="privacy-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+          </div>
+          <h3>iCloud Sync</h3>
+          <p>Optional iCloud sync keeps your data encrypted and only accessible to you.</p>
+        </div>
+        <div class="privacy-card glass fade-in">
+          <div class="privacy-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </div>
+          <h3>Open & Transparent</h3>
+          <p>No hidden analytics. No data selling. Just a tool that respects your privacy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 7: DOWNLOAD CTA + FOOTER ========== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="fade-in"><span class="gradient-text">Start Tracking Smarter</span></h2>
+      <div class="store-buttons fade-in">
+        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the App Store">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-btn-label">Download on the</span>
+            App Store
+          </div>
+        </a>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the Mac App Store">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-btn-text">
+            <span class="store-btn-label">Download on the</span>
+            Mac App Store
+          </div>
+        </a>
+      </div>
+      <div class="cta-extras fade-in">
+        <span class="cta-watch">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><polyline points="12 9 12 12 13.5 13.5"/><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"/></svg>
+          Also available on Apple Watch
+        </span>
+        <a href="travel.html">Try our Travel Budget App Clip</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <nav class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="accessibility.html">Accessibility</a>
+        <a href="mailto:hussein.juybari@gmail.com">Support</a>
+      </nav>
+      <p class="footer-copy">&copy; 2026 Expense Tracker Genius</p>
+    </div>
+  </footer>
+
+  <!-- ===== Scroll Animations ===== -->
+  <script>
+    (function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(function(el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+
 </body>
 </html>
