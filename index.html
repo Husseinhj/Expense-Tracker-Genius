@@ -216,48 +216,25 @@
       }
     }
 
-    /* ===== App Store Buttons ===== */
+    /* ===== App Store Badges ===== */
     .store-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
       margin-top: 32px;
     }
-    .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 28px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-      background: var(--glass-elevated-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-elevated-border);
-      box-shadow: 0 4px 20px var(--glass-shadow);
+    .store-badge {
+      display: inline-block;
       transition: all 0.3s ease;
       cursor: pointer;
     }
-    .store-btn:hover {
+    .store-badge:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px var(--brand-glow);
-      border-color: var(--brand-primary);
+      filter: brightness(1.1);
     }
-    .store-btn svg {
-      width: 24px;
-      height: 24px;
-    }
-    .store-btn-text {
-      text-align: left;
-      line-height: 1.2;
-    }
-    .store-btn-label {
-      font-size: 11px;
-      font-weight: 400;
-      color: var(--text-secondary);
-      display: block;
+    .store-badge img {
+      height: 48px;
+      width: auto;
     }
 
     /* ========================================
@@ -687,19 +664,11 @@
       <p class="hero-subtitle fade-in">Smart expense tracking with AI insights. Privacy-first — your data never leaves your device.</p>
 
       <div class="store-buttons fade-in">
-        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the App Store">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div class="store-btn-text">
-            <span class="store-btn-label">Download on the</span>
-            App Store
-          </div>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-badge" aria-label="Download on the App Store">
+          <img src="screenshots/app-store-badge.svg" alt="Download on the App Store">
         </a>
-        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the Mac App Store">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div class="store-btn-text">
-            <span class="store-btn-label">Download on the</span>
-            Mac App Store
-          </div>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-badge" aria-label="Download on the Mac App Store">
+          <img src="screenshots/mac-app-store-badge.svg" alt="Download on the Mac App Store">
         </a>
       </div>
 
@@ -940,19 +909,11 @@
     <div class="container">
       <h2 class="fade-in"><span class="gradient-text">Start Tracking Smarter</span></h2>
       <div class="store-buttons fade-in">
-        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the App Store">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div class="store-btn-text">
-            <span class="store-btn-label">Download on the</span>
-            App Store
-          </div>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-badge" aria-label="Download on the App Store">
+          <img src="screenshots/app-store-badge.svg" alt="Download on the App Store">
         </a>
-        <a href="https://apps.apple.com/app/id6760190294" class="store-btn" aria-label="Download on the Mac App Store">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div class="store-btn-text">
-            <span class="store-btn-label">Download on the</span>
-            Mac App Store
-          </div>
+        <a href="https://apps.apple.com/app/id6760190294" class="store-badge" aria-label="Download on the Mac App Store">
+          <img src="screenshots/mac-app-store-badge.svg" alt="Download on the Mac App Store">
         </a>
       </div>
       <div class="cta-extras fade-in">
