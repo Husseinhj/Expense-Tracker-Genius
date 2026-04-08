@@ -573,105 +573,131 @@
     /* ===== Site Header ===== */
     .site-header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(12,12,22,0.6);
+      background: rgba(12,12,22,0.7);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 1px 12px rgba(0,0,0,0.2);
-      padding: 0 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0 20px;
     }
     @media (prefers-color-scheme: light) {
       .site-header {
-        background: rgba(255,255,255,0.65);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+        background: rgba(255,255,255,0.7);
+        border-bottom-color: rgba(0,0,0,0.06);
       }
     }
     .site-header-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 56px; gap: 12px;
-      flex-wrap: nowrap;
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center;
+      height: 52px; gap: 0;
     }
     .site-logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 8px;
       text-decoration: none; color: var(--text-primary);
-      font-weight: 700; font-size: 15px; white-space: nowrap;
+      font-weight: 700; font-size: 14px; white-space: nowrap;
+      margin-right: auto;
+      flex-shrink: 0;
     }
-    .site-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    [dir="rtl"] .site-logo { margin-right: 0; margin-left: auto; }
+    .site-logo img { width: 28px; height: 28px; border-radius: 7px; }
     .site-nav {
-      display: flex; align-items: center; gap: 6px;
-      flex-wrap: nowrap;
+      display: flex; align-items: center; gap: 2px;
+      margin: 0 12px;
     }
     .site-nav a {
       color: var(--text-secondary); text-decoration: none;
       font-size: 13px; font-weight: 500;
-      padding: 6px 12px; border-radius: 8px;
-      transition: color 0.2s, background 0.2s;
+      padding: 5px 10px; border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
       white-space: nowrap;
     }
-    .site-nav a:hover, .site-nav a.active {
-      color: var(--text-primary);
-      background: var(--glass-bg);
+    .site-nav a:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+    .site-nav a.active { color: var(--text-primary); background: rgba(255,255,255,0.08); }
+    @media (prefers-color-scheme: light) {
+      .site-nav a:hover { background: rgba(0,0,0,0.04); }
+      .site-nav a.active { background: rgba(0,0,0,0.06); }
     }
     .site-actions {
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; gap: 6px;
       flex-shrink: 0;
+      margin-left: 8px;
+      position: relative;
     }
-    .lang-select {
-      background: var(--glass-bg); color: var(--text-primary);
-      border: 1px solid var(--glass-border); border-radius: 8px;
-      padding: 6px 10px; font-size: 13px;
-      cursor: pointer; outline: none;
-      -webkit-appearance: none; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394A3B8' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6.5 6.5 6.5-6.5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      padding-right: 26px;
+    [dir="rtl"] .site-actions { margin-left: 0; margin-right: 8px; }
+    .lang-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,0.06); color: var(--text-secondary);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+      padding: 5px 8px; font-size: 12px; font-weight: 500;
+      cursor: pointer; outline: none; position: relative;
+    }
+    .lang-btn:hover { color: var(--text-primary); background: rgba(255,255,255,0.1); }
+    .lang-btn svg { opacity: 0.7; }
+    .lang-modal {
+      display: none; position: absolute; top: 100%; right: 0; margin-top: 6px;
+      background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 200; min-width: 280px;
+    }
+    .lang-modal.open { display: block; }
+    [dir="rtl"] .lang-modal { right: auto; left: 0; }
+    .lang-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+    }
+    .lang-item {
+      padding: 6px 8px; border-radius: 6px; font-size: 12px;
+      color: var(--text-secondary); cursor: pointer; text-align: center;
+      transition: background 0.15s, color 0.15s; border: none; background: none;
+      white-space: nowrap;
+    }
+    .lang-item:hover { background: rgba(255,255,255,0.08); color: var(--text-primary); }
+    .lang-item.active {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      color: #fff; font-weight: 600;
+    }
+    @media (prefers-color-scheme: light) {
+      .lang-btn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+      .lang-modal { background: #fff; border-color: rgba(0,0,0,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+      .lang-item:hover { background: rgba(0,0,0,0.04); }
     }
     .header-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border-radius: 8px;
-      font-size: 13px; font-weight: 600;
+      display: inline-flex; align-items: center;
+      padding: 5px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
       text-decoration: none; white-space: nowrap;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s, opacity 0.15s;
     }
+    .header-btn:hover { transform: translateY(-1px); opacity: 0.9; }
     .header-btn-primary {
       background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
       color: #fff;
     }
     .header-btn-secondary {
-      background: var(--glass-bg); color: var(--text-primary);
-      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.06); color: var(--text-secondary);
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .header-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--brand-glow); }
 
     /* RTL */
     [dir="rtl"] { direction: rtl; text-align: right; }
-    [dir="rtl"] .lang-select {
-      background-position: left 8px center;
-      padding-right: 10px; padding-left: 26px;
-    }
-    html[lang="fa"], html[lang="fa"] body,
-    html[lang="fa"] .site-header, html[lang="fa"] .site-nav a,
-    html[lang="fa"] .lang-select, html[lang="fa"] .header-btn {
-      font-family: 'Vazirmatn', -apple-system, sans-serif;
-    }
+    [dir="rtl"] .lang-modal { right: auto; left: 0; }
+    /* Persian + Hebrew font */
+    html[lang="fa"], html[lang="fa"] * { font-family: 'Vazirmatn', -apple-system, sans-serif !important; }
+    html[lang="he"], html[lang="he"] * { font-family: -apple-system, 'Segoe UI', sans-serif; }
 
-    @media (max-width: 1024px) {
-      .site-nav a { font-size: 12px; padding: 4px 8px; }
-      .header-btn { font-size: 12px; padding: 5px 10px; }
+    /* Responsive header */
+    @media (max-width: 900px) {
+      .site-nav a { font-size: 12px; padding: 4px 7px; }
       .header-btn-secondary { display: none; }
     }
-    @media (max-width: 768px) {
-      .site-header-inner { height: 48px; gap: 8px; }
+    @media (max-width: 700px) {
+      .site-header-inner { height: 46px; }
       .site-logo span { display: none; }
-      .site-nav a { font-size: 11px; padding: 4px 6px; }
-      .lang-select { font-size: 11px; padding: 4px 22px 4px 6px; }
+      .site-nav a { font-size: 11px; padding: 3px 5px; }
+      .header-btn { font-size: 11px; padding: 4px 10px; }
+      .lang-modal { min-width: 240px; right: -20px; }
     }
-    @media (max-width: 580px) {
+    @media (max-width: 520px) {
       .site-nav { display: none; }
-      .header-btn-secondary { display: none; }
     }
 
     /* ===== Responsive ===== */
@@ -700,7 +726,7 @@
   <header class="site-header glass">
     <div class="site-header-inner">
       <a href="index.html" class="site-logo">
-        <img src="screenshots/AppIcon.png" alt="App Icon">
+        <img src="screenshots/AppIcon.png" alt="Icon">
         <span>Expense Tracker Genius</span>
       </a>
       <nav class="site-nav">
@@ -708,57 +734,48 @@
         <a href="travel.html">Travel</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
-        <a href="accessibility.html">Accessibility</a>
       </nav>
       <div class="site-actions">
-        <select class="lang-select" id="langSelect" onchange="switchLang(this.value)">
-          <option value="en" selected>English</option>
-          <option value="de">Deutsch</option>
-          <option value="fr">Français</option>
-          <option value="es">Español</option>
-          <option value="it">Italiano</option>
-          <option value="nl">Nederlands</option>
-          <option value="pt-BR">Português</option>
-          <option value="ja">日本語</option>
-          <option value="zh-Hans">简体中文</option>
-          <option value="ko">한국어</option>
-          <option value="ar">العربية</option>
-          <option value="fa">فارسی</option>
-          <option value="he">עברית</option>
-          <option value="hi">हिन्दी</option>
-          <option value="th">ไทย</option>
-          <option value="vi">Tiếng Việt</option>
-          <option value="tr">Türkçe</option>
-          <option value="ru">Русский</option>
-          <option value="uk">Українська</option>
-          <option value="pl">Polski</option>
-          <option value="ro">Română</option>
-          <option value="cs">Čeština</option>
-          <option value="hu">Magyar</option>
-        </select>
+        <button class="lang-btn" id="langBtn" onclick="document.getElementById('langModal').classList.toggle('open')" aria-label="Change language">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+          <span id="langLabel">EN</span>
+        </button>
+        <div class="lang-modal" id="langModal">
+          <div class="lang-grid" id="langGrid"></div>
+        </div>
         <a href="https://appclip.apple.com/id?p=com.accountant.app.Clip" class="header-btn header-btn-secondary">App Clip</a>
         <a href="https://apps.apple.com/app/id6760190294" class="header-btn header-btn-primary">Download</a>
       </div>
     </div>
   </header>
-
   <script>
-    function switchLang(lang) {
-      const url = new URL(window.location);
-      url.searchParams.set('lang', lang);
-      window.location = url;
-    }
-    // Set lang from URL on load
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      const lang = params.get('lang');
-      if (lang) {
-        document.getElementById('langSelect').value = lang;
-        const rtl = ['ar','fa','he'].includes(lang);
-        document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr');
-        document.documentElement.setAttribute('lang', lang);
-      }
-    })();
+  const LANGS=[
+    ['en','English'],['de','Deutsch'],['fr','Français'],['es','Español'],
+    ['it','Italiano'],['nl','Nederlands'],['pt-BR','Português'],['ja','日本語'],
+    ['zh-Hans','中文'],['ko','한국어'],['ar','العربية'],['fa','فارسی'],
+    ['he','עברית'],['hi','हिन्दी'],['th','ไทย'],['vi','Tiếng Việt'],
+    ['tr','Türkçe'],['ru','Русский'],['uk','Українська'],['pl','Polski'],
+    ['ro','Română'],['cs','Čeština'],['hu','Magyar']
+  ];
+  const RTL=['ar','fa','he'];
+  function getCurLang(){return new URLSearchParams(location.search).get('lang')||'en'}
+  function switchLang(l){const u=new URL(location);u.searchParams.set('lang',l);location=u}
+  !function(){
+    const cur=getCurLang(),g=document.getElementById('langGrid');
+    LANGS.forEach(function(x){
+      const b=document.createElement('button');
+      b.className='lang-item'+(x[0]===cur?' active':'');
+      b.textContent=x[1];b.onclick=function(){switchLang(x[0])};
+      g.appendChild(b);
+    });
+    document.getElementById('langLabel').textContent=LANGS.find(function(x){return x[0]===cur})?.[1]||'EN';
+    if(RTL.includes(cur)){document.documentElement.dir='rtl'}
+    document.documentElement.lang=cur;
+    document.addEventListener('click',function(e){
+      const m=document.getElementById('langModal'),b=document.getElementById('langBtn');
+      if(!b.contains(e.target)&&!m.contains(e.target))m.classList.remove('open');
+    });
+  }();
   </script>
 
   <!-- ========== SECTION 1: HERO ========== -->
