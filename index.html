@@ -7,6 +7,8 @@
   <title>Expense Tracker Genius — Smart AI Expense Tracking</title>
   <meta name="description" content="Smart expense tracking with AI insights, receipt scanning, budgets, and more. Privacy-first — no servers, all on-device. Available on iPhone, iPad, Mac, and Apple Watch.">
   <meta name="theme-color" content="#0C0C16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* ===== CSS Variables ===== */
     :root {
@@ -568,6 +570,110 @@
       height: 18px;
     }
 
+    /* ===== Site Header ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(12,12,22,0.6);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 1px 12px rgba(0,0,0,0.2);
+      padding: 0 24px;
+    }
+    @media (prefers-color-scheme: light) {
+      .site-header {
+        background: rgba(255,255,255,0.65);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      }
+    }
+    .site-header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px; gap: 12px;
+      flex-wrap: nowrap;
+    }
+    .site-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-primary);
+      font-weight: 700; font-size: 15px; white-space: nowrap;
+    }
+    .site-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .site-nav {
+      display: flex; align-items: center; gap: 6px;
+      flex-wrap: nowrap;
+    }
+    .site-nav a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      padding: 6px 12px; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover, .site-nav a.active {
+      color: var(--text-primary);
+      background: var(--glass-bg);
+    }
+    .site-actions {
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
+    }
+    .lang-select {
+      background: var(--glass-bg); color: var(--text-primary);
+      border: 1px solid var(--glass-border); border-radius: 8px;
+      padding: 6px 10px; font-size: 13px;
+      cursor: pointer; outline: none;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394A3B8' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6.5 6.5 6.5-6.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      padding-right: 26px;
+    }
+    .header-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      text-decoration: none; white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .header-btn-primary {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      color: #fff;
+    }
+    .header-btn-secondary {
+      background: var(--glass-bg); color: var(--text-primary);
+      border: 1px solid var(--glass-border);
+    }
+    .header-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--brand-glow); }
+
+    /* RTL */
+    [dir="rtl"] { direction: rtl; text-align: right; }
+    [dir="rtl"] .lang-select {
+      background-position: left 8px center;
+      padding-right: 10px; padding-left: 26px;
+    }
+    html[lang="fa"], html[lang="fa"] body,
+    html[lang="fa"] .site-header, html[lang="fa"] .site-nav a,
+    html[lang="fa"] .lang-select, html[lang="fa"] .header-btn {
+      font-family: 'Vazirmatn', -apple-system, sans-serif;
+    }
+
+    @media (max-width: 1024px) {
+      .site-nav a { font-size: 12px; padding: 4px 8px; }
+      .header-btn { font-size: 12px; padding: 5px 10px; }
+      .header-btn-secondary { display: none; }
+    }
+    @media (max-width: 768px) {
+      .site-header-inner { height: 48px; gap: 8px; }
+      .site-logo span { display: none; }
+      .site-nav a { font-size: 11px; padding: 4px 6px; }
+      .lang-select { font-size: 11px; padding: 4px 22px 4px 6px; }
+    }
+    @media (max-width: 580px) {
+      .site-nav { display: none; }
+      .header-btn-secondary { display: none; }
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
       section { padding: 72px 0; }
@@ -589,6 +695,71 @@
   </style>
 </head>
 <body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="screenshots/AppIcon.png" alt="App Icon">
+        <span>Expense Tracker Genius</span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="travel.html">Travel</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="accessibility.html">Accessibility</a>
+      </nav>
+      <div class="site-actions">
+        <select class="lang-select" id="langSelect" onchange="switchLang(this.value)">
+          <option value="en" selected>English</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="nl">Nederlands</option>
+          <option value="pt-BR">Português</option>
+          <option value="ja">日本語</option>
+          <option value="zh-Hans">简体中文</option>
+          <option value="ko">한국어</option>
+          <option value="ar">العربية</option>
+          <option value="fa">فارسی</option>
+          <option value="he">עברית</option>
+          <option value="hi">हिन्दी</option>
+          <option value="th">ไทย</option>
+          <option value="vi">Tiếng Việt</option>
+          <option value="tr">Türkçe</option>
+          <option value="ru">Русский</option>
+          <option value="uk">Українська</option>
+          <option value="pl">Polski</option>
+          <option value="ro">Română</option>
+          <option value="cs">Čeština</option>
+          <option value="hu">Magyar</option>
+        </select>
+        <a href="https://appclip.apple.com/id?p=com.accountant.app.Clip" class="header-btn header-btn-secondary">App Clip</a>
+        <a href="https://apps.apple.com/app/id6760190294" class="header-btn header-btn-primary">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    function switchLang(lang) {
+      const url = new URL(window.location);
+      url.searchParams.set('lang', lang);
+      window.location = url;
+    }
+    // Set lang from URL on load
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang');
+      if (lang) {
+        document.getElementById('langSelect').value = lang;
+        const rtl = ['ar','fa','he'].includes(lang);
+        document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', lang);
+      }
+    })();
+  </script>
 
   <!-- ========== SECTION 1: HERO ========== -->
   <section class="hero">
