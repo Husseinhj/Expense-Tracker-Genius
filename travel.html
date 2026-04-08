@@ -3,808 +3,325 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Budget Planner — Expense Tracker Genius</title>
-  <meta name="description" content="Estimate your travel expenses in seconds. Get daily budget breakdowns for 25+ destinations with live exchange rates.">
   <meta name="apple-itunes-app" content="app-id=6760190294">
+  <title data-i18n="travel_meta_title">Travel Budget Planner — Expense Tracker Genius</title>
+  <meta name="description" data-i18n="travel_meta_description" data-i18n-attr="content" content="Estimate your travel expenses in seconds. Get daily budget breakdowns for 25+ destinations with live exchange rates.">
   <meta property="og:title" content="Travel Budget Planner — Expense Tracker Genius">
   <meta property="og:description" content="Estimate your travel expenses in seconds with live exchange rates.">
   <meta property="og:url" content="https://husseinhj.github.io/Expense-Tracker-Genius/travel.html">
   <meta property="og:type" content="website">
-  <style>
-:root {
-  --brand-primary: #7C3AED;
-  --brand-secondary: #A855F7;
-  --bg-primary: #0C0C16;
-  --bg-secondary: #1A1A2E;
-  --bg-card: rgba(255,255,255,0.04);
-  --border-card: rgba(255,255,255,0.08);
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #64748B;
-  --radius: 16px;
-  --card-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-primary: #F5F5FA;
-    --bg-secondary: #FFFFFF;
-    --bg-card: rgba(0,0,0,0.02);
-    --border-card: rgba(0,0,0,0.06);
-    --text-primary: #1E1B4B;
-    --text-secondary: #64748B;
-    --text-tertiary: #94A3B8;
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-  }
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-[dir="rtl"] { direction: rtl; text-align: right; }
-.container { max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; }
-.back-link {
-  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px;
-  color: var(--brand-primary); text-decoration: none; font-size: 14px;
-}
-.back-link .icon-svg { width: 16px; height: 16px; }
-.header { text-align: center; padding: 20px 0 28px; }
-.header-icon {
-  width: 56px; height: 56px; margin: 0 auto 14px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(168,85,247,0.15));
-  border-radius: 16px;
-}
-.header-icon .icon-svg { width: 28px; height: 28px; color: var(--brand-primary); }
-.header h1 {
-  font-size: 28px; font-weight: 700;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.subtitle { font-size: 14px; color: var(--text-secondary); margin-top: 6px; }
-.lang-switcher {
-  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
-  margin-bottom: 24px; padding: 14px;
-  border-radius: var(--radius);
-  background: var(--bg-secondary);
-  box-shadow: var(--card-shadow);
-}
-.lang-btn {
-  padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border-card);
-  background: transparent; color: var(--text-secondary); cursor: pointer;
-  font-size: 13px; transition: all 0.2s;
-}
-.lang-btn:hover { border-color: var(--brand-primary); color: var(--text-primary); }
-.lang-btn.active {
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-  color: white; border-color: transparent;
-}
-.card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: var(--card-shadow);
-}
-.card-header {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
-}
-.card-header-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(168,85,247,0.12));
-  flex-shrink: 0;
-}
-.card-header-icon .icon-svg { width: 16px; height: 16px; color: var(--brand-primary); }
-.card-header-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
-.form-group { margin-bottom: 16px; }
-.form-group:last-child { margin-bottom: 0; }
-.form-label {
-  display: block; font-size: 13px; color: var(--text-tertiary);
-  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600;
-}
-.form-select, .form-input {
-  width: 100%; padding: 12px 16px; border-radius: 10px;
-  background: var(--bg-primary); border: 1px solid var(--border-card);
-  color: var(--text-primary); font-size: 15px;
-  font-family: inherit; transition: border-color 0.2s;
-  -webkit-appearance: none; appearance: none;
-}
-.form-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-}
-[dir="rtl"] .form-select {
-  background-position: left 16px center;
-  padding-right: 16px; padding-left: 40px;
-}
-.form-select:focus, .form-input:focus {
-  outline: none; border-color: var(--brand-primary);
-}
-.form-input {
-  -moz-appearance: textfield;
-}
-.form-input::-webkit-inner-spin-button,
-.form-input::-webkit-outer-spin-button {
-  -webkit-appearance: none; margin: 0;
-}
-.days-input-wrap {
-  display: flex; align-items: center; gap: 12px;
-}
-.days-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--bg-primary); border: 1px solid var(--border-card);
-  color: var(--text-primary); font-size: 20px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s; flex-shrink: 0;
-}
-.days-btn:hover { border-color: var(--brand-primary); }
-.days-btn:active { transform: scale(0.95); }
-.days-input-wrap .form-input { text-align: center; flex: 1; }
-.style-picker {
-  display: flex; gap: 10px;
-}
-.style-btn {
-  flex: 1; padding: 14px 8px; border-radius: 12px;
-  border: 1px solid var(--border-card); background: transparent;
-  color: var(--text-secondary); cursor: pointer; font-size: 13px;
-  font-family: inherit; font-weight: 500; transition: all 0.2s;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-}
-.style-btn .icon-svg { width: 22px; height: 22px; }
-.style-btn:hover { border-color: var(--brand-primary); color: var(--text-primary); }
-.style-btn.active {
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-  color: white; border-color: transparent; font-weight: 600;
-  box-shadow: 0 0 20px rgba(124,58,237,0.35), 0 0 8px rgba(168,85,247,0.25);
-}
-.result-card {
-  background: var(--bg-secondary);
-  border: 1px solid rgba(124, 58, 237, 0.15);
-}
-.result-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 10px 0; border-bottom: 1px solid var(--border-card);
-}
-.result-row:last-of-type { border-bottom: none; }
-.result-row .row-label {
-  display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary);
-}
-.row-icon-circle {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.row-icon-circle .icon-svg { width: 16px; height: 16px; }
-.row-icon-circle.icon-acc { background: rgba(124,58,237,0.12); color: #7C3AED; }
-.row-icon-circle.icon-food { background: rgba(168,85,247,0.12); color: #A855F7; }
-.row-icon-circle.icon-trans { background: rgba(245,158,11,0.12); color: #F59E0B; }
-.row-icon-circle.icon-act { background: rgba(16,185,129,0.12); color: #10B981; }
-.result-amount { font-size: 15px; font-weight: 600; color: var(--text-primary); font-variant-numeric: tabular-nums; }
-.result-divider { border: none; border-top: 1px solid var(--border-card); margin: 4px 0; }
-.result-daily-total .row-label { font-weight: 600; color: var(--text-primary); }
-.result-total-section {
-  text-align: center; padding: 20px; margin-top: 12px;
-  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(168,85,247,0.08));
-  border-radius: 12px;
-}
-.result-total-label { font-size: 13px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-.result-total-amount {
-  font-size: 36px; font-weight: 700;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.result-converted { font-size: 16px; color: var(--text-secondary); margin-top: 4px; }
-.exchange-note { font-size: 12px; color: var(--text-tertiary); margin-top: 8px; }
-.cta-section { text-align: center; }
-.cta-icon {
-  width: 40px; height: 40px; margin: 0 auto 12px;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--brand-primary);
-}
-.cta-icon .icon-svg { width: 28px; height: 28px; }
-.cta-text { font-size: 15px; color: var(--text-secondary); margin-bottom: 18px; }
-.cta-button {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 16px 36px; border-radius: 14px;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-  color: white; text-decoration: none; font-size: 17px; font-weight: 600;
-  transition: all 0.2s;
-}
-.cta-button .icon-svg { width: 18px; height: 18px; }
-.cta-button:hover { transform: translateY(-1px); opacity: 0.9; }
-.disclaimer { font-size: 12px; color: var(--text-tertiary); margin-top: 14px; }
-.footer {
-  text-align: center; padding: 32px 0; color: var(--text-tertiary); font-size: 13px;
-}
-.footer a { color: var(--brand-primary); text-decoration: none; }
-.cost-bar {
-  display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 14px; margin-bottom: 6px;
-}
-.cost-bar-seg { transition: width 0.3s ease; }
-.cost-bar-seg.seg-acc { background: #7C3AED; }
-.cost-bar-seg.seg-food { background: #A855F7; }
-.cost-bar-seg.seg-trans { background: #F59E0B; }
-.cost-bar-seg.seg-act { background: #10B981; }
-.cost-bar-legend {
-  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-  font-size: 11px; color: var(--text-tertiary);
-}
-.cost-bar-legend span { display: flex; align-items: center; gap: 5px; }
-.cost-bar-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
-.icon-svg {
-  display: inline-block; vertical-align: middle;
-  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-}
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css">
+  <script defer src="js/components.js"></script>
+  <script defer src="js/i18n.js"></script>
 </head>
-<body>
-  <div class="container">
-    <a href="index.html" class="back-link" data-i18n="back_link">
-      <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
-      Expense Tracker Genius
-    </a>
+<body data-page="travel">
+  <div id="site-header"></div>
 
-    <div class="header">
-      <div class="header-icon">
-        <svg class="icon-svg" width="28" height="28" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-      </div>
-      <h1 data-i18n="Travel Budget Planner">Travel Budget Planner</h1>
-      <p class="subtitle" data-i18n="travel_subtitle">Estimate your travel expenses in seconds</p>
-    </div>
-
-    <div class="lang-switcher" id="langSwitcher"></div>
-
-    <!-- Destination -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon">
-          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="currentColor" stroke="none"/></svg>
+  <main class="page-shell">
+    <section class="section-sm">
+      <div class="container-narrow travel-layout">
+        <div class="page-intro fade-in">
+          <div class="page-icon">✈️</div>
+          <h1 class="page-title"><span class="gradient-text" data-i18n="Travel Budget Planner">Travel Budget Planner</span></h1>
+          <p class="page-intro-text" data-i18n="travel_subtitle">Estimate your travel expenses in seconds</p>
         </div>
-        <span class="card-header-title" data-i18n="Destination">Destination</span>
+
+        <section class="travel-card card fade-in">
+          <div class="travel-card-header">
+            <div class="travel-card-icon">📍</div>
+            <h2 class="travel-card-title" data-i18n="Destination">Destination</h2>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="destination" data-i18n="Destination">Destination</label>
+            <select id="destination" class="form-select"></select>
+          </div>
+        </section>
+
+        <section class="travel-card card fade-in">
+          <div class="travel-card-header">
+            <div class="travel-card-icon">🧳</div>
+            <h2 class="travel-card-title" data-i18n="trip_details_title">Trip Details</h2>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="days" data-i18n="Number of Days">Number of Days</label>
+            <div class="days-input-wrap">
+              <button class="days-btn" id="daysDown" type="button">−</button>
+              <input id="days" type="number" class="form-input" min="1" max="90" value="7">
+              <button class="days-btn" id="daysUp" type="button">+</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="Travel Style">Travel Style</label>
+            <div class="style-picker" id="stylePicker">
+              <button class="style-btn" type="button" data-style="budget"><span data-i18n="Budget">Budget</span></button>
+              <button class="style-btn active" type="button" data-style="moderate"><span data-i18n="Moderate">Moderate</span></button>
+              <button class="style-btn" type="button" data-style="premium"><span data-i18n="Premium">Premium</span></button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="homeCurrency" data-i18n="Your Currency">Your Currency</label>
+            <select id="homeCurrency" class="form-select"></select>
+          </div>
+        </section>
+
+        <section class="travel-card card fade-in" id="results">
+          <div class="travel-card-header">
+            <div class="travel-card-icon">📊</div>
+            <h2 class="travel-card-title" data-i18n="Daily Budget Breakdown">Daily Budget Breakdown</h2>
+          </div>
+
+          <div class="result-row"><span class="result-label"><span>🏨</span> <span data-i18n="Accommodation">Accommodation</span></span><strong class="result-value" id="amtAcc">—</strong></div>
+          <div class="result-row"><span class="result-label"><span>🍽️</span> <span data-i18n="Food & Drink">Food & Drink</span></span><strong class="result-value" id="amtFood">—</strong></div>
+          <div class="result-row"><span class="result-label"><span>🚕</span> <span data-i18n="Transport">Transport</span></span><strong class="result-value" id="amtTrans">—</strong></div>
+          <div class="result-row"><span class="result-label"><span>🎟️</span> <span data-i18n="Activities">Activities</span></span><strong class="result-value" id="amtAct">—</strong></div>
+
+          <div class="cost-bar" id="costBar"></div>
+          <div class="legend">
+            <span class="legend-item"><span class="legend-dot" style="background:#7C3AED"></span><span data-i18n="Accommodation">Accommodation</span></span>
+            <span class="legend-item"><span class="legend-dot" style="background:#A855F7"></span><span data-i18n="Food & Drink">Food & Drink</span></span>
+            <span class="legend-item"><span class="legend-dot" style="background:#F59E0B"></span><span data-i18n="Transport">Transport</span></span>
+            <span class="legend-item"><span class="legend-dot" style="background:#10B981"></span><span data-i18n="Activities">Activities</span></span>
+          </div>
+
+          <div class="result-row" style="margin-top:16px;"><span class="result-label" data-i18n="Daily Total">Daily Total</span><strong class="result-value" id="dailyTotal">—</strong></div>
+
+          <div class="total-panel">
+            <div class="total-label" data-i18n="Trip Total">Trip Total</div>
+            <div class="total-amount gradient-text" id="tripTotalLocal">—</div>
+            <div class="total-converted" id="tripTotalHome"></div>
+            <div class="note" id="exchangeNote"></div>
+          </div>
+        </section>
+
+        <section class="travel-card card cta-card fade-in">
+          <div class="page-icon" style="width:52px;height:52px;margin:0 auto 14px;font-size:1.5rem;">⭐</div>
+          <p class="lead" data-i18n="cta_text">Track your actual travel expenses with the full app</p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="https://apps.apple.com/app/id6760190294" class="button" target="_blank" rel="noreferrer" data-no-preserve-lang="true"><span data-i18n="Download App">Download App</span></a>
+            <a href="https://appclip.apple.com/id?p=com.accountant.app.Clip" class="button-secondary" target="_blank" rel="noreferrer" data-no-preserve-lang="true"><span data-i18n="Try App Clip">Try App Clip</span></a>
+          </div>
+          <p class="note" data-i18n="disclaimer">Costs are estimates based on 2026 averages for a single traveler.</p>
+        </section>
       </div>
-      <div class="form-group">
-        <select id="destination" class="form-select"></select>
-      </div>
-    </div>
+    </section>
+  </main>
 
-    <!-- Trip Details -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-header-icon">
-          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <span class="card-header-title" data-i18n="trip_details_title">Trip Details</span>
-      </div>
-      <div class="form-group">
-        <label class="form-label" data-i18n="Number of Days">Number of Days</label>
-        <div class="days-input-wrap">
-          <button class="days-btn" id="daysDown">&minus;</button>
-          <input id="days" type="number" class="form-input" min="1" max="90" value="7">
-          <button class="days-btn" id="daysUp">+</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label" data-i18n="Travel Style">Travel Style</label>
-        <div class="style-picker" id="stylePicker">
-          <button class="style-btn" data-style="budget">
-            <svg class="icon-svg" width="22" height="22" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke-width="1.5"/></svg>
-            <span data-i18n="Budget">Budget</span>
-          </button>
-          <button class="style-btn active" data-style="moderate">
-            <svg class="icon-svg" width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="1.5"/></svg>
-            <span data-i18n="Moderate">Moderate</span>
-          </button>
-          <button class="style-btn" data-style="premium">
-            <svg class="icon-svg" width="22" height="22" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-width="1.5"/></svg>
-            <span data-i18n="Premium">Premium</span>
-          </button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label" data-i18n="Your Currency">Your Currency</label>
-        <select id="homeCurrency" class="form-select"></select>
-      </div>
-    </div>
+  <div id="site-footer"></div>
 
-    <!-- Results -->
-    <div class="card result-card" id="results">
-      <div class="card-header">
-        <div class="card-header-icon">
-          <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9" rx="1" fill="currentColor" stroke="none"/><rect x="10" y="7" width="4" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="17" y="3" width="4" height="18" rx="1" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <span class="card-header-title" data-i18n="Daily Budget Breakdown">Daily Budget Breakdown</span>
-      </div>
+  <script>
+    const TRAVEL_COSTS = {
+      JP: { currency:'JPY', budget:{accommodation:4000,food:2000,transport:1500,activities:1000}, moderate:{accommodation:12000,food:5000,transport:3000,activities:3000}, premium:{accommodation:40000,food:12000,transport:6000,activities:8000}},
+      TH: { currency:'THB', budget:{accommodation:500,food:300,transport:150,activities:200}, moderate:{accommodation:1500,food:800,transport:400,activities:500}, premium:{accommodation:5000,food:2000,transport:1000,activities:1500}},
+      FR: { currency:'EUR', budget:{accommodation:40,food:25,transport:10,activities:15}, moderate:{accommodation:120,food:50,transport:20,activities:30}, premium:{accommodation:350,food:120,transport:50,activities:80}},
+      IT: { currency:'EUR', budget:{accommodation:35,food:22,transport:8,activities:12}, moderate:{accommodation:100,food:45,transport:18,activities:25}, premium:{accommodation:300,food:100,transport:45,activities:70}},
+      ES: { currency:'EUR', budget:{accommodation:30,food:20,transport:8,activities:10}, moderate:{accommodation:90,food:40,transport:15,activities:25}, premium:{accommodation:280,food:90,transport:40,activities:65}},
+      DE: { currency:'EUR', budget:{accommodation:35,food:20,transport:10,activities:12}, moderate:{accommodation:110,food:45,transport:18,activities:25}, premium:{accommodation:300,food:100,transport:40,activities:60}},
+      NL: { currency:'EUR', budget:{accommodation:35,food:22,transport:10,activities:12}, moderate:{accommodation:120,food:45,transport:15,activities:25}, premium:{accommodation:320,food:100,transport:35,activities:60}},
+      GR: { currency:'EUR', budget:{accommodation:25,food:15,transport:6,activities:8}, moderate:{accommodation:80,food:35,transport:12,activities:20}, premium:{accommodation:250,food:80,transport:35,activities:55}},
+      TR: { currency:'TRY', budget:{accommodation:500,food:250,transport:100,activities:150}, moderate:{accommodation:1500,food:600,transport:250,activities:400}, premium:{accommodation:5000,food:1500,transport:600,activities:1000}},
+      PT: { currency:'EUR', budget:{accommodation:28,food:18,transport:6,activities:8}, moderate:{accommodation:85,food:35,transport:12,activities:20}, premium:{accommodation:250,food:80,transport:30,activities:55}},
+      GB: { currency:'GBP', budget:{accommodation:40,food:20,transport:12,activities:10}, moderate:{accommodation:120,food:45,transport:25,activities:25}, premium:{accommodation:350,food:100,transport:50,activities:70}},
+      ID: { currency:'IDR', budget:{accommodation:150000,food:80000,transport:50000,activities:60000}, moderate:{accommodation:500000,food:200000,transport:120000,activities:150000}, premium:{accommodation:2000000,food:600000,transport:350000,activities:500000}},
+      VN: { currency:'VND', budget:{accommodation:200000,food:120000,transport:60000,activities:80000}, moderate:{accommodation:700000,food:300000,transport:150000,activities:200000}, premium:{accommodation:2500000,food:800000,transport:400000,activities:600000}},
+      KR: { currency:'KRW', budget:{accommodation:30000,food:15000,transport:8000,activities:8000}, moderate:{accommodation:100000,food:40000,transport:15000,activities:20000}, premium:{accommodation:300000,food:100000,transport:40000,activities:60000}},
+      IN: { currency:'INR', budget:{accommodation:800,food:400,transport:200,activities:200}, moderate:{accommodation:3000,food:1200,transport:600,activities:800}, premium:{accommodation:12000,food:4000,transport:2000,activities:3000}},
+      US: { currency:'USD', budget:{accommodation:60,food:30,transport:15,activities:15}, moderate:{accommodation:150,food:60,transport:30,activities:35}, premium:{accommodation:400,food:150,transport:70,activities:100}},
+      MX: { currency:'MXN', budget:{accommodation:400,food:200,transport:80,activities:100}, moderate:{accommodation:1200,food:500,transport:200,activities:300}, premium:{accommodation:4000,food:1500,transport:500,activities:800}},
+      BR: { currency:'BRL', budget:{accommodation:80,food:50,transport:20,activities:25}, moderate:{accommodation:250,food:120,transport:50,activities:70}, premium:{accommodation:800,food:300,transport:120,activities:200}},
+      CO: { currency:'COP', budget:{accommodation:60000,food:30000,transport:12000,activities:15000}, moderate:{accommodation:200000,food:80000,transport:30000,activities:50000}, premium:{accommodation:600000,food:200000,transport:80000,activities:150000}},
+      AE: { currency:'AED', budget:{accommodation:150,food:60,transport:30,activities:40}, moderate:{accommodation:400,food:150,transport:60,activities:100}, premium:{accommodation:1200,food:400,transport:150,activities:300}},
+      MA: { currency:'MAD', budget:{accommodation:200,food:80,transport:40,activities:50}, moderate:{accommodation:600,food:200,transport:100,activities:150}, premium:{accommodation:2000,food:500,transport:250,activities:400}},
+      AU: { currency:'AUD', budget:{accommodation:50,food:30,transport:15,activities:15}, moderate:{accommodation:150,food:60,transport:30,activities:35}, premium:{accommodation:400,food:150,transport:70,activities:100}},
+      NZ: { currency:'NZD', budget:{accommodation:45,food:25,transport:12,activities:12}, moderate:{accommodation:140,food:55,transport:25,activities:30}, premium:{accommodation:380,food:130,transport:60,activities:90}},
+      ZA: { currency:'ZAR', budget:{accommodation:400,food:200,transport:100,activities:120}, moderate:{accommodation:1200,food:500,transport:250,activities:350}, premium:{accommodation:4000,food:1500,transport:600,activities:1000}},
+      EG: { currency:'EGP', budget:{accommodation:500,food:200,transport:100,activities:150}, moderate:{accommodation:1500,food:500,transport:250,activities:400}, premium:{accommodation:5000,food:1500,transport:600,activities:1000}},
+    };
 
-      <div class="result-row">
-        <span class="row-label">
-          <span class="row-icon-circle icon-acc">
-            <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M3 21h18M3 7v14M21 7v14M6 11h4v4H6zM14 11h4v4h-4zM10 3l2-1 2 1h6v4H4V3h6z" stroke-width="1.5"/></svg>
-          </span>
-          <span data-i18n="Accommodation">Accommodation</span>
-        </span>
-        <span class="result-amount" id="amtAcc">&mdash;</span>
-      </div>
-      <div class="result-row">
-        <span class="row-label">
-          <span class="row-icon-circle icon-food">
-            <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h2a2 2 0 002-2V2M7 2v20M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3m0 0v7" stroke-width="1.5"/></svg>
-          </span>
-          <span data-i18n="Food & Drink">Food & Drink</span>
-        </span>
-        <span class="result-amount" id="amtFood">&mdash;</span>
-      </div>
-      <div class="result-row">
-        <span class="row-label">
-          <span class="row-icon-circle icon-trans">
-            <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M5 17h14M5 17a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2M5 17l-1 3m15-3l1 3M8 14h.01M16 14h.01" stroke-width="1.5"/></svg>
-          </span>
-          <span data-i18n="Transport">Transport</span>
-        </span>
-        <span class="result-amount" id="amtTrans">&mdash;</span>
-      </div>
-      <div class="result-row">
-        <span class="row-label">
-          <span class="row-icon-circle icon-act">
-            <svg class="icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M12 15c2.67 0 8 1.34 8 4v2H4v-2c0-2.66 5.33-4 8-4zm0-2a4 4 0 110-8 4 4 0 010 8z" fill="currentColor" stroke="none"/><circle cx="18" cy="6" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-          </span>
-          <span data-i18n="Activities">Activities</span>
-        </span>
-        <span class="result-amount" id="amtAct">&mdash;</span>
-      </div>
+    const HOME_CURRENCIES = [
+      { code:'USD', symbol:'$' }, { code:'EUR', symbol:'€' }, { code:'GBP', symbol:'£' }, { code:'JPY', symbol:'¥' },
+      { code:'AUD', symbol:'A$' }, { code:'CAD', symbol:'C$' }, { code:'CHF', symbol:'CHF' }, { code:'CNY', symbol:'¥' },
+      { code:'SEK', symbol:'kr' }, { code:'NZD', symbol:'NZ$' }, { code:'KRW', symbol:'₩' }, { code:'INR', symbol:'₹' },
+      { code:'BRL', symbol:'R$' }, { code:'TRY', symbol:'₺' }, { code:'AED', symbol:'AED' }, { code:'SAR', symbol:'SAR' },
+      { code:'IRR', symbol:'IRR' },
+    ];
 
-      <hr class="result-divider">
+    const COUNTRY_KEYS = ['Japan','Thailand','France','Italy','Spain','Germany','Netherlands','Greece','Turkey','Portugal','United Kingdom','Indonesia','Vietnam','South Korea','India','United States','Mexico','Brazil','Colombia','UAE','Morocco','Australia','New Zealand','South Africa','Egypt'];
+    const COUNTRY_ORDER = ['JP','TH','FR','IT','ES','DE','NL','GR','TR','PT','GB','ID','VN','KR','IN','US','MX','BR','CO','AE','MA','AU','NZ','ZA','EG'];
 
-      <div class="cost-bar" id="costBar"></div>
-      <div class="cost-bar-legend">
-        <span><span class="dot" style="background:#7C3AED"></span> <span data-i18n="Accommodation">Accommodation</span></span>
-        <span><span class="dot" style="background:#A855F7"></span> <span data-i18n="Food & Drink">Food</span></span>
-        <span><span class="dot" style="background:#F59E0B"></span> <span data-i18n="Transport">Transport</span></span>
-        <span><span class="dot" style="background:#10B981"></span> <span data-i18n="Activities">Activities</span></span>
-      </div>
+    let currentStyle = 'moderate';
+    let exchangeRates = {};
+    let ratesFetched = false;
 
-      <hr class="result-divider" style="margin-top:8px">
-
-      <div class="result-row result-daily-total">
-        <span class="row-label" data-i18n="Daily Total">Daily Total</span>
-        <span class="result-amount" id="dailyTotal">&mdash;</span>
-      </div>
-
-      <div class="result-total-section">
-        <div class="result-total-label" data-i18n="Trip Total">Trip Total</div>
-        <div class="result-total-amount" id="tripTotalLocal">&mdash;</div>
-        <div class="result-converted" id="tripTotalHome"></div>
-        <div class="exchange-note" id="exchangeNote"></div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="card cta-section">
-      <div class="cta-icon">
-        <svg class="icon-svg" width="28" height="28" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="1.5"/></svg>
-      </div>
-      <p class="cta-text" data-i18n="cta_text">Track your actual travel expenses with the full app</p>
-      <a href="https://apps.apple.com/app/id6760190294" class="cta-button">
-        <svg class="icon-svg" width="18" height="18" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-width="2"/></svg>
-        <span data-i18n="Download App">Download App</span>
-      </a>
-      <p class="disclaimer" data-i18n="disclaimer">Costs are estimates based on 2026 averages for a single traveler.</p>
-    </div>
-
-    <div class="footer">
-      &copy; 2026 Expense Tracker Genius &middot;
-      <a href="privacy.html" data-i18n="Privacy Policy">Privacy Policy</a> &middot;
-      <a href="terms.html" data-i18n="Terms of Use">Terms of Use</a>
-    </div>
-  </div>
-
-<script>
-// ── Cost data: daily per-person in local currency ──
-const TRAVEL_COSTS = {
-  JP: { currency:'JPY', flag:'\u{1F1EF}\u{1F1F5}',
-    budget:{accommodation:4000,food:2000,transport:1500,activities:1000},
-    moderate:{accommodation:12000,food:5000,transport:3000,activities:3000},
-    premium:{accommodation:40000,food:12000,transport:6000,activities:8000}},
-  TH: { currency:'THB', flag:'\u{1F1F9}\u{1F1ED}',
-    budget:{accommodation:500,food:300,transport:150,activities:200},
-    moderate:{accommodation:1500,food:800,transport:400,activities:500},
-    premium:{accommodation:5000,food:2000,transport:1000,activities:1500}},
-  FR: { currency:'EUR', flag:'\u{1F1EB}\u{1F1F7}',
-    budget:{accommodation:40,food:25,transport:10,activities:15},
-    moderate:{accommodation:120,food:50,transport:20,activities:30},
-    premium:{accommodation:350,food:120,transport:50,activities:80}},
-  IT: { currency:'EUR', flag:'\u{1F1EE}\u{1F1F9}',
-    budget:{accommodation:35,food:22,transport:8,activities:12},
-    moderate:{accommodation:100,food:45,transport:18,activities:25},
-    premium:{accommodation:300,food:100,transport:45,activities:70}},
-  ES: { currency:'EUR', flag:'\u{1F1EA}\u{1F1F8}',
-    budget:{accommodation:30,food:20,transport:8,activities:10},
-    moderate:{accommodation:90,food:40,transport:15,activities:25},
-    premium:{accommodation:280,food:90,transport:40,activities:65}},
-  DE: { currency:'EUR', flag:'\u{1F1E9}\u{1F1EA}',
-    budget:{accommodation:35,food:20,transport:10,activities:12},
-    moderate:{accommodation:110,food:45,transport:18,activities:25},
-    premium:{accommodation:300,food:100,transport:40,activities:60}},
-  NL: { currency:'EUR', flag:'\u{1F1F3}\u{1F1F1}',
-    budget:{accommodation:35,food:22,transport:10,activities:12},
-    moderate:{accommodation:120,food:45,transport:15,activities:25},
-    premium:{accommodation:320,food:100,transport:35,activities:60}},
-  GR: { currency:'EUR', flag:'\u{1F1EC}\u{1F1F7}',
-    budget:{accommodation:25,food:15,transport:6,activities:8},
-    moderate:{accommodation:80,food:35,transport:12,activities:20},
-    premium:{accommodation:250,food:80,transport:35,activities:55}},
-  TR: { currency:'TRY', flag:'\u{1F1F9}\u{1F1F7}',
-    budget:{accommodation:500,food:250,transport:100,activities:150},
-    moderate:{accommodation:1500,food:600,transport:250,activities:400},
-    premium:{accommodation:5000,food:1500,transport:600,activities:1000}},
-  PT: { currency:'EUR', flag:'\u{1F1F5}\u{1F1F9}',
-    budget:{accommodation:28,food:18,transport:6,activities:8},
-    moderate:{accommodation:85,food:35,transport:12,activities:20},
-    premium:{accommodation:250,food:80,transport:30,activities:55}},
-  GB: { currency:'GBP', flag:'\u{1F1EC}\u{1F1E7}',
-    budget:{accommodation:40,food:20,transport:12,activities:10},
-    moderate:{accommodation:120,food:45,transport:25,activities:25},
-    premium:{accommodation:350,food:100,transport:50,activities:70}},
-  ID: { currency:'IDR', flag:'\u{1F1EE}\u{1F1E9}',
-    budget:{accommodation:150000,food:80000,transport:50000,activities:60000},
-    moderate:{accommodation:500000,food:200000,transport:120000,activities:150000},
-    premium:{accommodation:2000000,food:600000,transport:350000,activities:500000}},
-  VN: { currency:'VND', flag:'\u{1F1FB}\u{1F1F3}',
-    budget:{accommodation:200000,food:120000,transport:60000,activities:80000},
-    moderate:{accommodation:700000,food:300000,transport:150000,activities:200000},
-    premium:{accommodation:2500000,food:800000,transport:400000,activities:600000}},
-  KR: { currency:'KRW', flag:'\u{1F1F0}\u{1F1F7}',
-    budget:{accommodation:30000,food:15000,transport:8000,activities:8000},
-    moderate:{accommodation:100000,food:40000,transport:15000,activities:20000},
-    premium:{accommodation:300000,food:100000,transport:40000,activities:60000}},
-  IN: { currency:'INR', flag:'\u{1F1EE}\u{1F1F3}',
-    budget:{accommodation:800,food:400,transport:200,activities:200},
-    moderate:{accommodation:3000,food:1200,transport:600,activities:800},
-    premium:{accommodation:12000,food:4000,transport:2000,activities:3000}},
-  US: { currency:'USD', flag:'\u{1F1FA}\u{1F1F8}',
-    budget:{accommodation:60,food:30,transport:15,activities:15},
-    moderate:{accommodation:150,food:60,transport:30,activities:35},
-    premium:{accommodation:400,food:150,transport:70,activities:100}},
-  MX: { currency:'MXN', flag:'\u{1F1F2}\u{1F1FD}',
-    budget:{accommodation:400,food:200,transport:80,activities:100},
-    moderate:{accommodation:1200,food:500,transport:200,activities:300},
-    premium:{accommodation:4000,food:1500,transport:500,activities:800}},
-  BR: { currency:'BRL', flag:'\u{1F1E7}\u{1F1F7}',
-    budget:{accommodation:80,food:50,transport:20,activities:25},
-    moderate:{accommodation:250,food:120,transport:50,activities:70},
-    premium:{accommodation:800,food:300,transport:120,activities:200}},
-  CO: { currency:'COP', flag:'\u{1F1E8}\u{1F1F4}',
-    budget:{accommodation:60000,food:30000,transport:12000,activities:15000},
-    moderate:{accommodation:200000,food:80000,transport:30000,activities:50000},
-    premium:{accommodation:600000,food:200000,transport:80000,activities:150000}},
-  AE: { currency:'AED', flag:'\u{1F1E6}\u{1F1EA}',
-    budget:{accommodation:150,food:60,transport:30,activities:40},
-    moderate:{accommodation:400,food:150,transport:60,activities:100},
-    premium:{accommodation:1200,food:400,transport:150,activities:300}},
-  MA: { currency:'MAD', flag:'\u{1F1F2}\u{1F1E6}',
-    budget:{accommodation:200,food:80,transport:40,activities:50},
-    moderate:{accommodation:600,food:200,transport:100,activities:150},
-    premium:{accommodation:2000,food:500,transport:250,activities:400}},
-  AU: { currency:'AUD', flag:'\u{1F1E6}\u{1F1FA}',
-    budget:{accommodation:50,food:30,transport:15,activities:15},
-    moderate:{accommodation:150,food:60,transport:30,activities:35},
-    premium:{accommodation:400,food:150,transport:70,activities:100}},
-  NZ: { currency:'NZD', flag:'\u{1F1F3}\u{1F1FF}',
-    budget:{accommodation:45,food:25,transport:12,activities:12},
-    moderate:{accommodation:140,food:55,transport:25,activities:30},
-    premium:{accommodation:380,food:130,transport:60,activities:90}},
-  ZA: { currency:'ZAR', flag:'\u{1F1FF}\u{1F1E6}',
-    budget:{accommodation:400,food:200,transport:100,activities:120},
-    moderate:{accommodation:1200,food:500,transport:250,activities:350},
-    premium:{accommodation:4000,food:1500,transport:600,activities:1000}},
-  EG: { currency:'EGP', flag:'\u{1F1EA}\u{1F1EC}',
-    budget:{accommodation:500,food:200,transport:100,activities:150},
-    moderate:{accommodation:1500,food:500,transport:250,activities:400},
-    premium:{accommodation:5000,food:1500,transport:600,activities:1000}}
-};
-
-// ── Home currency options ──
-const HOME_CURRENCIES = [
-  {code:'USD',symbol:'$',flag:'\u{1F1FA}\u{1F1F8}'},
-  {code:'EUR',symbol:'\u20AC',flag:'\u{1F1EA}\u{1F1FA}'},
-  {code:'GBP',symbol:'\u00A3',flag:'\u{1F1EC}\u{1F1E7}'},
-  {code:'JPY',symbol:'\u00A5',flag:'\u{1F1EF}\u{1F1F5}'},
-  {code:'AUD',symbol:'A$',flag:'\u{1F1E6}\u{1F1FA}'},
-  {code:'CAD',symbol:'C$',flag:'\u{1F1E8}\u{1F1E6}'},
-  {code:'CHF',symbol:'CHF',flag:'\u{1F1E8}\u{1F1ED}'},
-  {code:'CNY',symbol:'\u00A5',flag:'\u{1F1E8}\u{1F1F3}'},
-  {code:'SEK',symbol:'kr',flag:'\u{1F1F8}\u{1F1EA}'},
-  {code:'NZD',symbol:'NZ$',flag:'\u{1F1F3}\u{1F1FF}'},
-  {code:'KRW',symbol:'\u20A9',flag:'\u{1F1F0}\u{1F1F7}'},
-  {code:'INR',symbol:'\u20B9',flag:'\u{1F1EE}\u{1F1F3}'},
-  {code:'BRL',symbol:'R$',flag:'\u{1F1E7}\u{1F1F7}'},
-  {code:'TRY',symbol:'\u20BA',flag:'\u{1F1F9}\u{1F1F7}'},
-  {code:'AED',symbol:'AED',flag:'\u{1F1E6}\u{1F1EA}'},
-  {code:'SAR',symbol:'SAR',flag:'\u{1F1F8}\u{1F1E6}'},
-  {code:'IRR',symbol:'IRR',flag:'\u{1F1EE}\u{1F1F7}'}
-];
-
-// ── i18n ──
-const langMeta = {
-  en:{native:'English',dir:'ltr'},
-  de:{native:'Deutsch',dir:'ltr'},
-  nl:{native:'Nederlands',dir:'ltr'},
-  fr:{native:'Fran\u00E7ais',dir:'ltr'},
-  es:{native:'Espa\u00F1ol',dir:'ltr'},
-  it:{native:'Italiano',dir:'ltr'},
-  tr:{native:'T\u00FCrk\u00E7e',dir:'ltr'},
-  ja:{native:'\u65E5\u672C\u8A9E',dir:'ltr'},
-  'zh-Hans':{native:'\u7B80\u4F53\u4E2D\u6587',dir:'ltr'},
-  ar:{native:'\u0627\u0644\u0639\u0631\u0628\u064A\u0629',dir:'rtl'},
-  fa:{native:'\u0641\u0627\u0631\u0633\u06CC',dir:'rtl'}
-};
-
-const countryKeys = ['Japan','Thailand','France','Italy','Spain','Germany','Netherlands','Greece','Turkey','Portugal','United Kingdom','Indonesia','Vietnam','South Korea','India','United States','Mexico','Brazil','Colombia','UAE','Morocco','Australia','New Zealand','South Africa','Egypt'];
-const countryOrder = ['JP','TH','FR','IT','ES','DE','NL','GR','TR','PT','GB','ID','VN','KR','IN','US','MX','BR','CO','AE','MA','AU','NZ','ZA','EG'];
-
-const translations = {
-  en:{
-    "Travel Budget Planner":"Travel Budget Planner","travel_subtitle":"Estimate your travel expenses in seconds","back_link":"\u2190 Expense Tracker Genius","Destination":"Destination","Number of Days":"Number of Days","Travel Style":"Travel Style","Budget":"Budget","Moderate":"Moderate","Premium":"Premium","Your Currency":"Your Currency","Daily Budget Breakdown":"Daily Budget Breakdown","Accommodation":"Accommodation","Food & Drink":"Food & Drink","Transport":"Transport","Activities":"Activities","Daily Total":"Daily Total","Trip Total":"Trip Total","cta_text":"Track your actual travel expenses with the full app","Download App":"Download App","disclaimer":"Costs are estimates based on 2026 averages for a single traveler.","Privacy Policy":"Privacy Policy","Terms of Use":"Terms of Use","rate_note":"Rate: 1 {from} = {rate} {to} via ECB","rate_unavailable":"Currency conversion unavailable","trip_details_title":"Trip Details",
-    "Japan":"\u{1F1EF}\u{1F1F5} Japan","Thailand":"\u{1F1F9}\u{1F1ED} Thailand","France":"\u{1F1EB}\u{1F1F7} France","Italy":"\u{1F1EE}\u{1F1F9} Italy","Spain":"\u{1F1EA}\u{1F1F8} Spain","Germany":"\u{1F1E9}\u{1F1EA} Germany","Netherlands":"\u{1F1F3}\u{1F1F1} Netherlands","Greece":"\u{1F1EC}\u{1F1F7} Greece","Turkey":"\u{1F1F9}\u{1F1F7} Turkey","Portugal":"\u{1F1F5}\u{1F1F9} Portugal","United Kingdom":"\u{1F1EC}\u{1F1E7} United Kingdom","Indonesia":"\u{1F1EE}\u{1F1E9} Indonesia","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} South Korea","India":"\u{1F1EE}\u{1F1F3} India","United States":"\u{1F1FA}\u{1F1F8} United States","Mexico":"\u{1F1F2}\u{1F1FD} Mexico","Brazil":"\u{1F1E7}\u{1F1F7} Brazil","Colombia":"\u{1F1E8}\u{1F1F4} Colombia","UAE":"\u{1F1E6}\u{1F1EA} UAE","Morocco":"\u{1F1F2}\u{1F1E6} Morocco","Australia":"\u{1F1E6}\u{1F1FA} Australia","New Zealand":"\u{1F1F3}\u{1F1FF} New Zealand","South Africa":"\u{1F1FF}\u{1F1E6} South Africa","Egypt":"\u{1F1EA}\u{1F1EC} Egypt"
-  },
-  de:{
-    "Travel Budget Planner":"Reisebudget-Planer","travel_subtitle":"Sch\u00E4tzen Sie Ihre Reisekosten in Sekunden","back_link":"\u2190 Expense Tracker Genius","Destination":"Reiseziel","Number of Days":"Anzahl der Tage","Travel Style":"Reisestil","Budget":"Sparsam","Moderate":"Mittel","Premium":"Premium","Your Currency":"Ihre W\u00E4hrung","Daily Budget Breakdown":"T\u00E4gliche Kostenaufstellung","Accommodation":"Unterkunft","Food & Drink":"Essen & Trinken","Transport":"Transport","Activities":"Aktivit\u00E4ten","Daily Total":"Tagestotal","Trip Total":"Gesamtkosten","cta_text":"Verfolgen Sie Ihre tats\u00E4chlichen Reisekosten mit der App","Download App":"App herunterladen","disclaimer":"Die Kosten sind Sch\u00E4tzungen basierend auf Durchschnittswerten von 2026 f\u00FCr eine einzelne Person.","Privacy Policy":"Datenschutz","Terms of Use":"Nutzungsbedingungen","rate_note":"Kurs: 1 {from} = {rate} {to} via EZB","rate_unavailable":"W\u00E4hrungsumrechnung nicht verf\u00FCgbar","trip_details_title":"Reisedetails",
-    "Japan":"\u{1F1EF}\u{1F1F5} Japan","Thailand":"\u{1F1F9}\u{1F1ED} Thailand","France":"\u{1F1EB}\u{1F1F7} Frankreich","Italy":"\u{1F1EE}\u{1F1F9} Italien","Spain":"\u{1F1EA}\u{1F1F8} Spanien","Germany":"\u{1F1E9}\u{1F1EA} Deutschland","Netherlands":"\u{1F1F3}\u{1F1F1} Niederlande","Greece":"\u{1F1EC}\u{1F1F7} Griechenland","Turkey":"\u{1F1F9}\u{1F1F7} T\u00FCrkei","Portugal":"\u{1F1F5}\u{1F1F9} Portugal","United Kingdom":"\u{1F1EC}\u{1F1E7} Vereinigtes K\u00F6nigreich","Indonesia":"\u{1F1EE}\u{1F1E9} Indonesien","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} S\u00FCdkorea","India":"\u{1F1EE}\u{1F1F3} Indien","United States":"\u{1F1FA}\u{1F1F8} USA","Mexico":"\u{1F1F2}\u{1F1FD} Mexiko","Brazil":"\u{1F1E7}\u{1F1F7} Brasilien","Colombia":"\u{1F1E8}\u{1F1F4} Kolumbien","UAE":"\u{1F1E6}\u{1F1EA} VAE","Morocco":"\u{1F1F2}\u{1F1E6} Marokko","Australia":"\u{1F1E6}\u{1F1FA} Australien","New Zealand":"\u{1F1F3}\u{1F1FF} Neuseeland","South Africa":"\u{1F1FF}\u{1F1E6} S\u00FCdafrika","Egypt":"\u{1F1EA}\u{1F1EC} \u00C4gypten"
-  },
-  nl:{
-    "Travel Budget Planner":"Reisbudget Planner","travel_subtitle":"Schat uw reiskosten in seconden","back_link":"\u2190 Expense Tracker Genius","Destination":"Bestemming","Number of Days":"Aantal dagen","Travel Style":"Reisstijl","Budget":"Budget","Moderate":"Gemiddeld","Premium":"Premium","Your Currency":"Uw valuta","Daily Budget Breakdown":"Dagelijks budgetoverzicht","Accommodation":"Accommodatie","Food & Drink":"Eten & Drinken","Transport":"Vervoer","Activities":"Activiteiten","Daily Total":"Dagtotaal","Trip Total":"Totale kosten","cta_text":"Houd uw werkelijke reiskosten bij met de app","Download App":"App downloaden","disclaimer":"Kosten zijn schattingen op basis van gemiddelden uit 2026 voor een enkele reiziger.","Privacy Policy":"Privacybeleid","Terms of Use":"Gebruiksvoorwaarden","rate_note":"Koers: 1 {from} = {rate} {to} via ECB","rate_unavailable":"Valutaomrekening niet beschikbaar","trip_details_title":"Reisdetails",
-    "Japan":"\u{1F1EF}\u{1F1F5} Japan","Thailand":"\u{1F1F9}\u{1F1ED} Thailand","France":"\u{1F1EB}\u{1F1F7} Frankrijk","Italy":"\u{1F1EE}\u{1F1F9} Itali\u00EB","Spain":"\u{1F1EA}\u{1F1F8} Spanje","Germany":"\u{1F1E9}\u{1F1EA} Duitsland","Netherlands":"\u{1F1F3}\u{1F1F1} Nederland","Greece":"\u{1F1EC}\u{1F1F7} Griekenland","Turkey":"\u{1F1F9}\u{1F1F7} Turkije","Portugal":"\u{1F1F5}\u{1F1F9} Portugal","United Kingdom":"\u{1F1EC}\u{1F1E7} Verenigd Koninkrijk","Indonesia":"\u{1F1EE}\u{1F1E9} Indonesi\u00EB","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} Zuid-Korea","India":"\u{1F1EE}\u{1F1F3} India","United States":"\u{1F1FA}\u{1F1F8} Verenigde Staten","Mexico":"\u{1F1F2}\u{1F1FD} Mexico","Brazil":"\u{1F1E7}\u{1F1F7} Brazili\u00EB","Colombia":"\u{1F1E8}\u{1F1F4} Colombia","UAE":"\u{1F1E6}\u{1F1EA} VAE","Morocco":"\u{1F1F2}\u{1F1E6} Marokko","Australia":"\u{1F1E6}\u{1F1FA} Australi\u00EB","New Zealand":"\u{1F1F3}\u{1F1FF} Nieuw-Zeeland","South Africa":"\u{1F1FF}\u{1F1E6} Zuid-Afrika","Egypt":"\u{1F1EA}\u{1F1EC} Egypte"
-  },
-  fr:{
-    "Travel Budget Planner":"Planificateur de budget voyage","travel_subtitle":"Estimez vos frais de voyage en quelques secondes","back_link":"\u2190 Expense Tracker Genius","Destination":"Destination","Number of Days":"Nombre de jours","Travel Style":"Style de voyage","Budget":"Economique","Moderate":"Mod\u00E9r\u00E9","Premium":"Premium","Your Currency":"Votre devise","Daily Budget Breakdown":"D\u00E9tail du budget journalier","Accommodation":"H\u00E9bergement","Food & Drink":"Repas et boissons","Transport":"Transport","Activities":"Activit\u00E9s","Daily Total":"Total journalier","Trip Total":"Co\u00FBt total","cta_text":"Suivez vos d\u00E9penses de voyage r\u00E9elles avec l'app","Download App":"T\u00E9l\u00E9charger","disclaimer":"Les co\u00FBts sont des estimations bas\u00E9es sur les moyennes 2026 pour un voyageur.","Privacy Policy":"Confidentialit\u00E9","Terms of Use":"Conditions","rate_note":"Taux : 1 {from} = {rate} {to} via BCE","rate_unavailable":"Conversion de devise indisponible","trip_details_title":"D\u00E9tails du voyage",
-    "Japan":"\u{1F1EF}\u{1F1F5} Japon","Thailand":"\u{1F1F9}\u{1F1ED} Tha\u00EFlande","France":"\u{1F1EB}\u{1F1F7} France","Italy":"\u{1F1EE}\u{1F1F9} Italie","Spain":"\u{1F1EA}\u{1F1F8} Espagne","Germany":"\u{1F1E9}\u{1F1EA} Allemagne","Netherlands":"\u{1F1F3}\u{1F1F1} Pays-Bas","Greece":"\u{1F1EC}\u{1F1F7} Gr\u00E8ce","Turkey":"\u{1F1F9}\u{1F1F7} Turquie","Portugal":"\u{1F1F5}\u{1F1F9} Portugal","United Kingdom":"\u{1F1EC}\u{1F1E7} Royaume-Uni","Indonesia":"\u{1F1EE}\u{1F1E9} Indon\u00E9sie","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} Cor\u00E9e du Sud","India":"\u{1F1EE}\u{1F1F3} Inde","United States":"\u{1F1FA}\u{1F1F8} \u00C9tats-Unis","Mexico":"\u{1F1F2}\u{1F1FD} Mexique","Brazil":"\u{1F1E7}\u{1F1F7} Br\u00E9sil","Colombia":"\u{1F1E8}\u{1F1F4} Colombie","UAE":"\u{1F1E6}\u{1F1EA} \u00C9AU","Morocco":"\u{1F1F2}\u{1F1E6} Maroc","Australia":"\u{1F1E6}\u{1F1FA} Australie","New Zealand":"\u{1F1F3}\u{1F1FF} Nouvelle-Z\u00E9lande","South Africa":"\u{1F1FF}\u{1F1E6} Afrique du Sud","Egypt":"\u{1F1EA}\u{1F1EC} \u00C9gypte"
-  },
-  es:{
-    "Travel Budget Planner":"Planificador de presupuesto de viaje","travel_subtitle":"Estima tus gastos de viaje en segundos","back_link":"\u2190 Expense Tracker Genius","Destination":"Destino","Number of Days":"N\u00FAmero de d\u00EDas","Travel Style":"Estilo de viaje","Budget":"Econ\u00F3mico","Moderate":"Moderado","Premium":"Premium","Your Currency":"Tu moneda","Daily Budget Breakdown":"Desglose del presupuesto diario","Accommodation":"Alojamiento","Food & Drink":"Comida y bebida","Transport":"Transporte","Activities":"Actividades","Daily Total":"Total diario","Trip Total":"Coste total","cta_text":"Registra tus gastos reales de viaje con la app","Download App":"Descargar","disclaimer":"Los costes son estimaciones basadas en promedios de 2026 para un solo viajero.","Privacy Policy":"Privacidad","Terms of Use":"T\u00E9rminos","rate_note":"Tasa: 1 {from} = {rate} {to} v\u00EDa BCE","rate_unavailable":"Conversi\u00F3n de moneda no disponible","trip_details_title":"Detalles del viaje",
-    "Japan":"\u{1F1EF}\u{1F1F5} Jap\u00F3n","Thailand":"\u{1F1F9}\u{1F1ED} Tailandia","France":"\u{1F1EB}\u{1F1F7} Francia","Italy":"\u{1F1EE}\u{1F1F9} Italia","Spain":"\u{1F1EA}\u{1F1F8} Espa\u00F1a","Germany":"\u{1F1E9}\u{1F1EA} Alemania","Netherlands":"\u{1F1F3}\u{1F1F1} Pa\u00EDses Bajos","Greece":"\u{1F1EC}\u{1F1F7} Grecia","Turkey":"\u{1F1F9}\u{1F1F7} Turqu\u00EDa","Portugal":"\u{1F1F5}\u{1F1F9} Portugal","United Kingdom":"\u{1F1EC}\u{1F1E7} Reino Unido","Indonesia":"\u{1F1EE}\u{1F1E9} Indonesia","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} Corea del Sur","India":"\u{1F1EE}\u{1F1F3} India","United States":"\u{1F1FA}\u{1F1F8} Estados Unidos","Mexico":"\u{1F1F2}\u{1F1FD} M\u00E9xico","Brazil":"\u{1F1E7}\u{1F1F7} Brasil","Colombia":"\u{1F1E8}\u{1F1F4} Colombia","UAE":"\u{1F1E6}\u{1F1EA} EAU","Morocco":"\u{1F1F2}\u{1F1E6} Marruecos","Australia":"\u{1F1E6}\u{1F1FA} Australia","New Zealand":"\u{1F1F3}\u{1F1FF} Nueva Zelanda","South Africa":"\u{1F1FF}\u{1F1E6} Sud\u00E1frica","Egypt":"\u{1F1EA}\u{1F1EC} Egipto"
-  },
-  it:{
-    "Travel Budget Planner":"Pianificatore budget di viaggio","travel_subtitle":"Stima le tue spese di viaggio in pochi secondi","back_link":"\u2190 Expense Tracker Genius","Destination":"Destinazione","Number of Days":"Numero di giorni","Travel Style":"Stile di viaggio","Budget":"Economico","Moderate":"Moderato","Premium":"Premium","Your Currency":"La tua valuta","Daily Budget Breakdown":"Ripartizione del budget giornaliero","Accommodation":"Alloggio","Food & Drink":"Cibo e bevande","Transport":"Trasporti","Activities":"Attivit\u00E0","Daily Total":"Totale giornaliero","Trip Total":"Costo totale","cta_text":"Monitora le tue spese di viaggio reali con l'app","Download App":"Scarica","disclaimer":"I costi sono stime basate sulle medie del 2026 per un singolo viaggiatore.","Privacy Policy":"Privacy","Terms of Use":"Termini","rate_note":"Tasso: 1 {from} = {rate} {to} via BCE","rate_unavailable":"Conversione valuta non disponibile","trip_details_title":"Dettagli del viaggio",
-    "Japan":"\u{1F1EF}\u{1F1F5} Giappone","Thailand":"\u{1F1F9}\u{1F1ED} Thailandia","France":"\u{1F1EB}\u{1F1F7} Francia","Italy":"\u{1F1EE}\u{1F1F9} Italia","Spain":"\u{1F1EA}\u{1F1F8} Spagna","Germany":"\u{1F1E9}\u{1F1EA} Germania","Netherlands":"\u{1F1F3}\u{1F1F1} Paesi Bassi","Greece":"\u{1F1EC}\u{1F1F7} Grecia","Turkey":"\u{1F1F9}\u{1F1F7} Turchia","Portugal":"\u{1F1F5}\u{1F1F9} Portogallo","United Kingdom":"\u{1F1EC}\u{1F1E7} Regno Unito","Indonesia":"\u{1F1EE}\u{1F1E9} Indonesia","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} Corea del Sud","India":"\u{1F1EE}\u{1F1F3} India","United States":"\u{1F1FA}\u{1F1F8} Stati Uniti","Mexico":"\u{1F1F2}\u{1F1FD} Messico","Brazil":"\u{1F1E7}\u{1F1F7} Brasile","Colombia":"\u{1F1E8}\u{1F1F4} Colombia","UAE":"\u{1F1E6}\u{1F1EA} EAU","Morocco":"\u{1F1F2}\u{1F1E6} Marocco","Australia":"\u{1F1E6}\u{1F1FA} Australia","New Zealand":"\u{1F1F3}\u{1F1FF} Nuova Zelanda","South Africa":"\u{1F1FF}\u{1F1E6} Sudafrica","Egypt":"\u{1F1EA}\u{1F1EC} Egitto"
-  },
-  tr:{
-    "Travel Budget Planner":"Seyahat B\u00FCt\u00E7e Planlayici","travel_subtitle":"Seyahat masraflarinizi saniyeler i\u00E7inde tahmin edin","back_link":"\u2190 Expense Tracker Genius","Destination":"Hedef","Number of Days":"G\u00FCn sayisi","Travel Style":"Seyahat Tarz\u0131","Budget":"B\u00FCt\u00E7e","Moderate":"Orta","Premium":"Premium","Your Currency":"Para biriminiz","Daily Budget Breakdown":"G\u00FCnl\u00FCk b\u00FCt\u00E7e d\u00F6k\u00FCm\u00FC","Accommodation":"Konaklama","Food & Drink":"Yiyecek ve i\u00E7ecek","Transport":"Ula\u015F\u0131m","Activities":"Aktiviteler","Daily Total":"G\u00FCnl\u00FCk toplam","Trip Total":"Toplam maliyet","cta_text":"Ger\u00E7ek seyahat harcamalar\u0131n\u0131z\u0131 uygulama ile takip edin","Download App":"Indir","disclaimer":"Maliyetler, tek bir gezgin i\u00E7in 2026 ortalamalar\u0131na dayanan tahminlerdir.","Privacy Policy":"Gizlilik","Terms of Use":"Ko\u015Fullar","rate_note":"Kur: 1 {from} = {rate} {to} AMB","rate_unavailable":"D\u00F6viz \u00E7evirme mevcut de\u011Fil","trip_details_title":"Seyahat Detaylar\u0131",
-    "Japan":"\u{1F1EF}\u{1F1F5} Japonya","Thailand":"\u{1F1F9}\u{1F1ED} Tayland","France":"\u{1F1EB}\u{1F1F7} Fransa","Italy":"\u{1F1EE}\u{1F1F9} Italya","Spain":"\u{1F1EA}\u{1F1F8} Ispanya","Germany":"\u{1F1E9}\u{1F1EA} Almanya","Netherlands":"\u{1F1F3}\u{1F1F1} Hollanda","Greece":"\u{1F1EC}\u{1F1F7} Yunanistan","Turkey":"\u{1F1F9}\u{1F1F7} T\u00FCrkiye","Portugal":"\u{1F1F5}\u{1F1F9} Portekiz","United Kingdom":"\u{1F1EC}\u{1F1E7} Birle\u015Fik Krall\u0131k","Indonesia":"\u{1F1EE}\u{1F1E9} Endonezya","Vietnam":"\u{1F1FB}\u{1F1F3} Vietnam","South Korea":"\u{1F1F0}\u{1F1F7} G\u00FCney Kore","India":"\u{1F1EE}\u{1F1F3} Hindistan","United States":"\u{1F1FA}\u{1F1F8} ABD","Mexico":"\u{1F1F2}\u{1F1FD} Meksika","Brazil":"\u{1F1E7}\u{1F1F7} Brezilya","Colombia":"\u{1F1E8}\u{1F1F4} Kolombiya","UAE":"\u{1F1E6}\u{1F1EA} BAE","Morocco":"\u{1F1F2}\u{1F1E6} Fas","Australia":"\u{1F1E6}\u{1F1FA} Avustralya","New Zealand":"\u{1F1F3}\u{1F1FF} Yeni Zelanda","South Africa":"\u{1F1FF}\u{1F1E6} G\u00FCney Afrika","Egypt":"\u{1F1EA}\u{1F1EC} M\u0131s\u0131r"
-  },
-  ja:{
-    "Travel Budget Planner":"\u65C5\u884C\u4E88\u7B97\u30D7\u30E9\u30F3\u30CA\u30FC","travel_subtitle":"\u65C5\u884C\u8CBB\u7528\u3092\u6570\u79D2\u3067\u898B\u7A4D\u3082\u308A","back_link":"\u2190 Expense Tracker Genius","Destination":"\u76EE\u7684\u5730","Number of Days":"\u65E5\u6570","Travel Style":"\u65C5\u884C\u30B9\u30BF\u30A4\u30EB","Budget":"\u7BC0\u7D04","Moderate":"\u6A19\u6E96","Premium":"\u8D05\u6CA2","Your Currency":"\u901A\u8CA8","Daily Budget Breakdown":"\u65E5\u5225\u4E88\u7B97\u5185\u8A33","Accommodation":"\u5BBF\u6CCA","Food & Drink":"\u98DF\u4E8B","Transport":"\u4EA4\u901A","Activities":"\u30A2\u30AF\u30C6\u30A3\u30D3\u30C6\u30A3","Daily Total":"\u65E5\u5408\u8A08","Trip Total":"\u65C5\u884C\u7DCF\u984D","cta_text":"\u5B9F\u969B\u306E\u65C5\u884C\u8CBB\u7528\u3092\u30A2\u30D7\u30EA\u3067\u8A18\u9332","Download App":"\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9","disclaimer":"\u8CBB\u7528\u306F2026\u5E74\u306E\u4E00\u4EBA\u65C5\u884C\u8005\u5E73\u5747\u306B\u57FA\u3065\u304F\u63A8\u5B9A\u5024\u3067\u3059\u3002","Privacy Policy":"\u30D7\u30E9\u30A4\u30D0\u30B7\u30FC","Terms of Use":"\u5229\u7528\u898F\u7D04","rate_note":"\u30EC\u30FC\u30C8: 1 {from} = {rate} {to} ECB","rate_unavailable":"\u901A\u8CA8\u5909\u63DB\u5229\u7528\u4E0D\u53EF","trip_details_title":"\u65C5\u884C\u8A73\u7D30",
-    "Japan":"\u{1F1EF}\u{1F1F5} \u65E5\u672C","Thailand":"\u{1F1F9}\u{1F1ED} \u30BF\u30A4","France":"\u{1F1EB}\u{1F1F7} \u30D5\u30E9\u30F3\u30B9","Italy":"\u{1F1EE}\u{1F1F9} \u30A4\u30BF\u30EA\u30A2","Spain":"\u{1F1EA}\u{1F1F8} \u30B9\u30DA\u30A4\u30F3","Germany":"\u{1F1E9}\u{1F1EA} \u30C9\u30A4\u30C4","Netherlands":"\u{1F1F3}\u{1F1F1} \u30AA\u30E9\u30F3\u30C0","Greece":"\u{1F1EC}\u{1F1F7} \u30AE\u30EA\u30B7\u30E3","Turkey":"\u{1F1F9}\u{1F1F7} \u30C8\u30EB\u30B3","Portugal":"\u{1F1F5}\u{1F1F9} \u30DD\u30EB\u30C8\u30AC\u30EB","United Kingdom":"\u{1F1EC}\u{1F1E7} \u30A4\u30AE\u30EA\u30B9","Indonesia":"\u{1F1EE}\u{1F1E9} \u30A4\u30F3\u30C9\u30CD\u30B7\u30A2","Vietnam":"\u{1F1FB}\u{1F1F3} \u30D9\u30C8\u30CA\u30E0","South Korea":"\u{1F1F0}\u{1F1F7} \u97D3\u56FD","India":"\u{1F1EE}\u{1F1F3} \u30A4\u30F3\u30C9","United States":"\u{1F1FA}\u{1F1F8} \u30A2\u30E1\u30EA\u30AB","Mexico":"\u{1F1F2}\u{1F1FD} \u30E1\u30AD\u30B7\u30B3","Brazil":"\u{1F1E7}\u{1F1F7} \u30D6\u30E9\u30B8\u30EB","Colombia":"\u{1F1E8}\u{1F1F4} \u30B3\u30ED\u30F3\u30D3\u30A2","UAE":"\u{1F1E6}\u{1F1EA} UAE","Morocco":"\u{1F1F2}\u{1F1E6} \u30E2\u30ED\u30C3\u30B3","Australia":"\u{1F1E6}\u{1F1FA} \u30AA\u30FC\u30B9\u30C8\u30E9\u30EA\u30A2","New Zealand":"\u{1F1F3}\u{1F1FF} \u30CB\u30E5\u30FC\u30B8\u30FC\u30E9\u30F3\u30C9","South Africa":"\u{1F1FF}\u{1F1E6} \u5357\u30A2\u30D5\u30EA\u30AB","Egypt":"\u{1F1EA}\u{1F1EC} \u30A8\u30B8\u30D7\u30C8"
-  },
-  "zh-Hans":{
-    "Travel Budget Planner":"\u65C5\u884C\u9884\u7B97\u89C4\u5212\u5668","travel_subtitle":"\u51E0\u79D2\u949F\u5185\u4F30\u7B97\u60A8\u7684\u65C5\u884C\u8D39\u7528","back_link":"\u2190 Expense Tracker Genius","Destination":"\u76EE\u7684\u5730","Number of Days":"\u5929\u6570","Travel Style":"\u65C5\u884C\u98CE\u683C","Budget":"\u7ECF\u6D4E","Moderate":"\u8212\u9002","Premium":"\u8C6A\u534E","Your Currency":"\u60A8\u7684\u8D27\u5E01","Daily Budget Breakdown":"\u6BCF\u65E5\u9884\u7B97\u660E\u7EC6","Accommodation":"\u4F4F\u5BBF","Food & Drink":"\u9910\u996E","Transport":"\u4EA4\u901A","Activities":"\u6D3B\u52A8","Daily Total":"\u6BCF\u65E5\u5408\u8BA1","Trip Total":"\u65C5\u884C\u603B\u8D39\u7528","cta_text":"\u4F7F\u7528\u5E94\u7528\u8BB0\u5F55\u60A8\u7684\u5B9E\u9645\u65C5\u884C\u8D39\u7528","Download App":"\u4E0B\u8F7D","disclaimer":"\u8D39\u7528\u662F\u57FA\u4E8E2026\u5E74\u5355\u4EBA\u65C5\u884C\u8005\u5E73\u5747\u503C\u7684\u4F30\u7B97\u3002","Privacy Policy":"\u9690\u79C1\u653F\u7B56","Terms of Use":"\u4F7F\u7528\u6761\u6B3E","rate_note":"\u6C47\u7387: 1 {from} = {rate} {to} \u6B27\u6D32\u592E\u884C","rate_unavailable":"\u8D27\u5E01\u8F6C\u6362\u4E0D\u53EF\u7528","trip_details_title":"\u65C5\u884C\u8BE6\u60C5",
-    "Japan":"\u{1F1EF}\u{1F1F5} \u65E5\u672C","Thailand":"\u{1F1F9}\u{1F1ED} \u6CF0\u56FD","France":"\u{1F1EB}\u{1F1F7} \u6CD5\u56FD","Italy":"\u{1F1EE}\u{1F1F9} \u610F\u5927\u5229","Spain":"\u{1F1EA}\u{1F1F8} \u897F\u73ED\u7259","Germany":"\u{1F1E9}\u{1F1EA} \u5FB7\u56FD","Netherlands":"\u{1F1F3}\u{1F1F1} \u8377\u5170","Greece":"\u{1F1EC}\u{1F1F7} \u5E0C\u814A","Turkey":"\u{1F1F9}\u{1F1F7} \u571F\u8033\u5176","Portugal":"\u{1F1F5}\u{1F1F9} \u8461\u8404\u7259","United Kingdom":"\u{1F1EC}\u{1F1E7} \u82F1\u56FD","Indonesia":"\u{1F1EE}\u{1F1E9} \u5370\u5EA6\u5C3C\u897F\u4E9A","Vietnam":"\u{1F1FB}\u{1F1F3} \u8D8A\u5357","South Korea":"\u{1F1F0}\u{1F1F7} \u97E9\u56FD","India":"\u{1F1EE}\u{1F1F3} \u5370\u5EA6","United States":"\u{1F1FA}\u{1F1F8} \u7F8E\u56FD","Mexico":"\u{1F1F2}\u{1F1FD} \u58A8\u897F\u54E5","Brazil":"\u{1F1E7}\u{1F1F7} \u5DF4\u897F","Colombia":"\u{1F1E8}\u{1F1F4} \u54E5\u4F26\u6BD4\u4E9A","UAE":"\u{1F1E6}\u{1F1EA} \u963F\u8054\u914B","Morocco":"\u{1F1F2}\u{1F1E6} \u6469\u6D1B\u54E5","Australia":"\u{1F1E6}\u{1F1FA} \u6FB3\u5927\u5229\u4E9A","New Zealand":"\u{1F1F3}\u{1F1FF} \u65B0\u897F\u5170","South Africa":"\u{1F1FF}\u{1F1E6} \u5357\u975E","Egypt":"\u{1F1EA}\u{1F1EC} \u57C3\u53CA"
-  },
-  ar:{
-    "Travel Budget Planner":"\u0645\u062E\u0637\u0637 \u0645\u064A\u0632\u0627\u0646\u064A\u0629 \u0627\u0644\u0633\u0641\u0631","travel_subtitle":"\u0642\u062F\u0651\u0631 \u0646\u0641\u0642\u0627\u062A \u0633\u0641\u0631\u0643 \u0641\u064A \u062B\u0648\u0627\u0646\u064D","back_link":"Expense Tracker Genius \u2192","Destination":"\u0627\u0644\u0648\u062C\u0647\u0629","Number of Days":"\u0639\u062F\u062F \u0627\u0644\u0623\u064A\u0627\u0645","Travel Style":"\u0646\u0645\u0637 \u0627\u0644\u0633\u0641\u0631","Budget":"\u0627\u0642\u062A\u0635\u0627\u062F\u064A","Moderate":"\u0645\u062A\u0648\u0633\u0637","Premium":"\u0641\u0627\u062E\u0631","Your Currency":"\u0639\u0645\u0644\u062A\u0643","Daily Budget Breakdown":"\u062A\u0641\u0635\u064A\u0644 \u0627\u0644\u0645\u064A\u0632\u0627\u0646\u064A\u0629 \u0627\u0644\u064A\u0648\u0645\u064A\u0629","Accommodation":"\u0627\u0644\u0625\u0642\u0627\u0645\u0629","Food & Drink":"\u0627\u0644\u0637\u0639\u0627\u0645 \u0648\u0627\u0644\u0634\u0631\u0627\u0628","Transport":"\u0627\u0644\u0645\u0648\u0627\u0635\u0644\u0627\u062A","Activities":"\u0627\u0644\u0623\u0646\u0634\u0637\u0629","Daily Total":"\u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A \u0627\u0644\u064A\u0648\u0645\u064A","Trip Total":"\u0627\u0644\u062A\u0643\u0644\u0641\u0629 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A\u0629","cta_text":"\u062A\u062A\u0628\u0639 \u0646\u0641\u0642\u0627\u062A \u0633\u0641\u0631\u0643 \u0627\u0644\u0641\u0639\u0644\u064A\u0629 \u0645\u0639 \u0627\u0644\u062A\u0637\u0628\u064A\u0642","Download App":"\u062A\u062D\u0645\u064A\u0644","disclaimer":"\u0627\u0644\u062A\u0643\u0627\u0644\u064A\u0641 \u062A\u0642\u062F\u064A\u0631\u0627\u062A \u0628\u0646\u0627\u0621\u064B \u0639\u0644\u0649 \u0645\u062A\u0648\u0633\u0637\u0627\u062A 2026 \u0644\u0645\u0633\u0627\u0641\u0631 \u0648\u0627\u062D\u062F.","Privacy Policy":"\u0627\u0644\u062E\u0635\u0648\u0635\u064A\u0629","Terms of Use":"\u0627\u0644\u0634\u0631\u0648\u0637","rate_note":"\u0627\u0644\u0633\u0639\u0631: 1 {from} = {rate} {to} ECB","rate_unavailable":"\u062A\u062D\u0648\u064A\u0644 \u0627\u0644\u0639\u0645\u0644\u0627\u062A \u063A\u064A\u0631 \u0645\u062A\u0627\u062D","trip_details_title":"\u062A\u0641\u0627\u0635\u064A\u0644 \u0627\u0644\u0631\u062D\u0644\u0629",
-    "Japan":"\u{1F1EF}\u{1F1F5} \u0627\u0644\u064A\u0627\u0628\u0627\u0646","Thailand":"\u{1F1F9}\u{1F1ED} \u062A\u0627\u064A\u0644\u0627\u0646\u062F","France":"\u{1F1EB}\u{1F1F7} \u0641\u0631\u0646\u0633\u0627","Italy":"\u{1F1EE}\u{1F1F9} \u0625\u064A\u0637\u0627\u0644\u064A\u0627","Spain":"\u{1F1EA}\u{1F1F8} \u0625\u0633\u0628\u0627\u0646\u064A\u0627","Germany":"\u{1F1E9}\u{1F1EA} \u0623\u0644\u0645\u0627\u0646\u064A\u0627","Netherlands":"\u{1F1F3}\u{1F1F1} \u0647\u0648\u0644\u0646\u062F\u0627","Greece":"\u{1F1EC}\u{1F1F7} \u0627\u0644\u064A\u0648\u0646\u0627\u0646","Turkey":"\u{1F1F9}\u{1F1F7} \u062A\u0631\u0643\u064A\u0627","Portugal":"\u{1F1F5}\u{1F1F9} \u0627\u0644\u0628\u0631\u062A\u063A\u0627\u0644","United Kingdom":"\u{1F1EC}\u{1F1E7} \u0627\u0644\u0645\u0645\u0644\u0643\u0629 \u0627\u0644\u0645\u062A\u062D\u062F\u0629","Indonesia":"\u{1F1EE}\u{1F1E9} \u0625\u0646\u062F\u0648\u0646\u064A\u0633\u064A\u0627","Vietnam":"\u{1F1FB}\u{1F1F3} \u0641\u064A\u062A\u0646\u0627\u0645","South Korea":"\u{1F1F0}\u{1F1F7} \u0643\u0648\u0631\u064A\u0627 \u0627\u0644\u062C\u0646\u0648\u0628\u064A\u0629","India":"\u{1F1EE}\u{1F1F3} \u0627\u0644\u0647\u0646\u062F","United States":"\u{1F1FA}\u{1F1F8} \u0627\u0644\u0648\u0644\u0627\u064A\u0627\u062A \u0627\u0644\u0645\u062A\u062D\u062F\u0629","Mexico":"\u{1F1F2}\u{1F1FD} \u0627\u0644\u0645\u0643\u0633\u064A\u0643","Brazil":"\u{1F1E7}\u{1F1F7} \u0627\u0644\u0628\u0631\u0627\u0632\u064A\u0644","Colombia":"\u{1F1E8}\u{1F1F4} \u0643\u0648\u0644\u0648\u0645\u0628\u064A\u0627","UAE":"\u{1F1E6}\u{1F1EA} \u0627\u0644\u0625\u0645\u0627\u0631\u0627\u062A","Morocco":"\u{1F1F2}\u{1F1E6} \u0627\u0644\u0645\u063A\u0631\u0628","Australia":"\u{1F1E6}\u{1F1FA} \u0623\u0633\u062A\u0631\u0627\u0644\u064A\u0627","New Zealand":"\u{1F1F3}\u{1F1FF} \u0646\u064A\u0648\u0632\u064A\u0644\u0646\u062F\u0627","South Africa":"\u{1F1FF}\u{1F1E6} \u062C\u0646\u0648\u0628 \u0623\u0641\u0631\u064A\u0642\u064A\u0627","Egypt":"\u{1F1EA}\u{1F1EC} \u0645\u0635\u0631"
-  },
-  fa:{
-    "Travel Budget Planner":"\u0628\u0631\u0646\u0627\u0645\u0647\u200C\u0631\u06CC\u0632 \u0628\u0648\u062F\u062C\u0647 \u0633\u0641\u0631","travel_subtitle":"\u0647\u0632\u06CC\u0646\u0647\u200C\u0647\u0627\u06CC \u0633\u0641\u0631 \u062E\u0648\u062F \u0631\u0627 \u062F\u0631 \u0686\u0646\u062F \u062B\u0627\u0646\u06CC\u0647 \u062A\u062E\u0645\u06CC\u0646 \u0628\u0632\u0646\u06CC\u062F","back_link":"Expense Tracker Genius \u2192","Destination":"\u0645\u0642\u0635\u062F","Number of Days":"\u062A\u0639\u062F\u0627\u062F \u0631\u0648\u0632\u0647\u0627","Travel Style":"\u0633\u0628\u06A9 \u0633\u0641\u0631","Budget":"\u0627\u0642\u062A\u0635\u0627\u062F\u06CC","Moderate":"\u0645\u062A\u0648\u0633\u0637","Premium":"\u0644\u0648\u06A9\u0633","Your Currency":"\u0648\u0627\u062D\u062F \u067E\u0648\u0644","Daily Budget Breakdown":"\u062C\u0632\u0626\u06CC\u0627\u062A \u0628\u0648\u062F\u062C\u0647 \u0631\u0648\u0632\u0627\u0646\u0647","Accommodation":"\u0627\u0642\u0627\u0645\u062A","Food & Drink":"\u063A\u0630\u0627 \u0648 \u0646\u0648\u0634\u06CC\u062F\u0646\u06CC","Transport":"\u062D\u0645\u0644 \u0648 \u0646\u0642\u0644","Activities":"\u0641\u0639\u0627\u0644\u06CC\u062A\u200C\u0647\u0627","Daily Total":"\u062C\u0645\u0639 \u0631\u0648\u0632\u0627\u0646\u0647","Trip Total":"\u0647\u0632\u06CC\u0646\u0647 \u06A9\u0644 \u0633\u0641\u0631","cta_text":"\u0647\u0632\u06CC\u0646\u0647\u200C\u0647\u0627\u06CC \u0648\u0627\u0642\u0639\u06CC \u0633\u0641\u0631 \u062E\u0648\u062F \u0631\u0627 \u0628\u0627 \u0627\u067E\u0644\u06CC\u06A9\u06CC\u0634\u0646 \u067E\u06CC\u06AF\u06CC\u0631\u06CC \u06A9\u0646\u06CC\u062F","Download App":"\u062F\u0627\u0646\u0644\u0648\u062F","disclaimer":"\u0647\u0632\u06CC\u0646\u0647\u200C\u0647\u0627 \u062A\u062E\u0645\u06CC\u0646\u06CC \u0628\u0631 \u0627\u0633\u0627\u0633 \u0645\u06CC\u0627\u0646\u06AF\u06CC\u0646 \u06F2\u06F0\u06F2\u06F6 \u0628\u0631\u0627\u06CC \u06CC\u06A9 \u0645\u0633\u0627\u0641\u0631 \u0647\u0633\u062A\u0646\u062F.","Privacy Policy":"\u062D\u0631\u06CC\u0645 \u062E\u0635\u0648\u0635\u06CC","Terms of Use":"\u0634\u0631\u0627\u06CC\u0637","rate_note":"\u0646\u0631\u062E: 1 {from} = {rate} {to} ECB","rate_unavailable":"\u062A\u0628\u062F\u06CC\u0644 \u0627\u0631\u0632 \u062F\u0631 \u062F\u0633\u062A\u0631\u0633 \u0646\u06CC\u0633\u062A","trip_details_title":"\u062C\u0632\u0626\u06CC\u0627\u062A \u0633\u0641\u0631",
-    "Japan":"\u{1F1EF}\u{1F1F5} \u0698\u0627\u067E\u0646","Thailand":"\u{1F1F9}\u{1F1ED} \u062A\u0627\u06CC\u0644\u0646\u062F","France":"\u{1F1EB}\u{1F1F7} \u0641\u0631\u0627\u0646\u0633\u0647","Italy":"\u{1F1EE}\u{1F1F9} \u0627\u06CC\u062A\u0627\u0644\u06CC\u0627","Spain":"\u{1F1EA}\u{1F1F8} \u0627\u0633\u067E\u0627\u0646\u06CC\u0627","Germany":"\u{1F1E9}\u{1F1EA} \u0622\u0644\u0645\u0627\u0646","Netherlands":"\u{1F1F3}\u{1F1F1} \u0647\u0644\u0646\u062F","Greece":"\u{1F1EC}\u{1F1F7} \u06CC\u0648\u0646\u0627\u0646","Turkey":"\u{1F1F9}\u{1F1F7} \u062A\u0631\u06A9\u06CC\u0647","Portugal":"\u{1F1F5}\u{1F1F9} \u067E\u0631\u062A\u063A\u0627\u0644","United Kingdom":"\u{1F1EC}\u{1F1E7} \u0628\u0631\u06CC\u062A\u0627\u0646\u06CC\u0627","Indonesia":"\u{1F1EE}\u{1F1E9} \u0627\u0646\u062F\u0648\u0646\u0632\u06CC","Vietnam":"\u{1F1FB}\u{1F1F3} \u0648\u06CC\u062A\u0646\u0627\u0645","South Korea":"\u{1F1F0}\u{1F1F7} \u06A9\u0631\u0647 \u062C\u0646\u0648\u0628\u06CC","India":"\u{1F1EE}\u{1F1F3} \u0647\u0646\u062F","United States":"\u{1F1FA}\u{1F1F8} \u0622\u0645\u0631\u06CC\u06A9\u0627","Mexico":"\u{1F1F2}\u{1F1FD} \u0645\u06A9\u0632\u06CC\u06A9","Brazil":"\u{1F1E7}\u{1F1F7} \u0628\u0631\u0632\u06CC\u0644","Colombia":"\u{1F1E8}\u{1F1F4} \u06A9\u0644\u0645\u0628\u06CC\u0627","UAE":"\u{1F1E6}\u{1F1EA} \u0627\u0645\u0627\u0631\u0627\u062A","Morocco":"\u{1F1F2}\u{1F1E6} \u0645\u0631\u0627\u06A9\u0634","Australia":"\u{1F1E6}\u{1F1FA} \u0627\u0633\u062A\u0631\u0627\u0644\u06CC\u0627","New Zealand":"\u{1F1F3}\u{1F1FF} \u0646\u06CC\u0648\u0632\u06CC\u0644\u0646\u062F","South Africa":"\u{1F1FF}\u{1F1E6} \u0622\u0641\u0631\u06CC\u0642\u0627\u06CC \u062C\u0646\u0648\u0628\u06CC","Egypt":"\u{1F1EA}\u{1F1EC} \u0645\u0635\u0631"
-  }
-};
-
-// ── State ──
-let currentLang = 'en';
-let currentStyle = 'moderate';
-let exchangeRates = {};
-let ratesFetched = false;
-
-// ── Exchange rates ──
-async function fetchRates() {
-  try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=EUR');
-    const data = await res.json();
-    exchangeRates = data.rates;
-    exchangeRates['EUR'] = 1;
-    ratesFetched = true;
-    recalculate();
-  } catch (e) {
-    document.getElementById('exchangeNote').textContent = t('rate_unavailable');
-  }
-}
-
-function convert(amount, from, to) {
-  if (!ratesFetched || from === to) return null;
-  const fromRate = exchangeRates[from] || null;
-  const toRate = exchangeRates[to] || null;
-  if (!fromRate || !toRate) return null;
-  return amount / fromRate * toRate;
-}
-
-// ── Formatting ──
-function fmtCurrency(amount, currency) {
-  try {
-    return new Intl.NumberFormat(currentLang === 'zh-Hans' ? 'zh-CN' : currentLang, {
-      style: 'currency', currency: currency, maximumFractionDigits: 0
-    }).format(Math.round(amount));
-  } catch(e) {
-    return currency + ' ' + Math.round(amount).toLocaleString();
-  }
-}
-
-// ── Translation helper ──
-function t(key) {
-  const lang = translations[currentLang];
-  return (lang && lang[key]) || translations.en[key] || key;
-}
-
-// ── Populate selects ──
-function populateDestinations() {
-  const sel = document.getElementById('destination');
-  const current = sel.value || 'JP';
-  sel.innerHTML = '';
-  countryOrder.forEach(code => {
-    const opt = document.createElement('option');
-    opt.value = code;
-    opt.textContent = t(countryKeys[countryOrder.indexOf(code)]);
-    sel.appendChild(opt);
-  });
-  sel.value = current;
-}
-
-function populateCurrencies() {
-  const sel = document.getElementById('homeCurrency');
-  sel.innerHTML = '';
-  HOME_CURRENCIES.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c.code;
-    opt.textContent = c.flag + ' ' + c.code;
-    sel.appendChild(opt);
-  });
-  sel.value = 'USD';
-}
-
-// ── Recalculate ──
-function recalculate() {
-  const code = document.getElementById('destination').value;
-  const days = Math.max(1, Math.min(90, parseInt(document.getElementById('days').value) || 1));
-  const homeCur = document.getElementById('homeCurrency').value;
-
-  const country = TRAVEL_COSTS[code];
-  if (!country) return;
-  const costs = country[currentStyle];
-  const localCur = country.currency;
-
-  const acc = costs.accommodation;
-  const food = costs.food;
-  const trans = costs.transport;
-  const act = costs.activities;
-  const daily = acc + food + trans + act;
-  const total = daily * days;
-
-  document.getElementById('amtAcc').textContent = fmtCurrency(acc, localCur);
-  document.getElementById('amtFood').textContent = fmtCurrency(food, localCur);
-  document.getElementById('amtTrans').textContent = fmtCurrency(trans, localCur);
-  document.getElementById('amtAct').textContent = fmtCurrency(act, localCur);
-  document.getElementById('dailyTotal').textContent = fmtCurrency(daily, localCur);
-  document.getElementById('tripTotalLocal').textContent = fmtCurrency(total, localCur);
-
-  // Cost bar
-  const bar = document.getElementById('costBar');
-  bar.innerHTML = [
-    {cls:'seg-acc', pct: acc/daily*100},
-    {cls:'seg-food', pct: food/daily*100},
-    {cls:'seg-trans', pct: trans/daily*100},
-    {cls:'seg-act', pct: act/daily*100}
-  ].map(s => '<div class="cost-bar-seg '+s.cls+'" style="width:'+s.pct.toFixed(1)+'%"></div>').join('');
-
-  // Conversion
-  const homeEl = document.getElementById('tripTotalHome');
-  const noteEl = document.getElementById('exchangeNote');
-
-  if (localCur === homeCur) {
-    homeEl.textContent = '';
-    noteEl.textContent = '';
-  } else {
-    const converted = convert(total, localCur, homeCur);
-    if (converted !== null) {
-      homeEl.textContent = '\u2248 ' + fmtCurrency(converted, homeCur);
-      const rate = convert(1, localCur, homeCur);
-      const noteTemplate = t('rate_note');
-      noteEl.textContent = noteTemplate
-        .replace('{from}', localCur)
-        .replace('{rate}', rate.toFixed(rate < 0.01 ? 6 : rate < 1 ? 4 : 2))
-        .replace('{to}', homeCur);
-    } else {
-      homeEl.textContent = '';
-      noteEl.textContent = t('rate_unavailable');
+    function t(key) {
+      return window.SiteI18n ? window.SiteI18n.t(key) : key;
     }
-  }
-}
 
-// ── i18n ──
-function getPreferredLang() {
-  const params = new URLSearchParams(window.location.search);
-  const urlLang = params.get('lang');
-  if (urlLang && langMeta[urlLang]) return urlLang;
-  const nav = (navigator.language || '').toLowerCase();
-  if (nav.startsWith('zh')) return 'zh-Hans';
-  const base = nav.split('-')[0];
-  if (langMeta[base]) return base;
-  return 'en';
-}
+    function currentLang() {
+      return window.SiteI18n ? window.SiteI18n.getLanguage() : 'en';
+    }
 
-function setLang(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = langMeta[lang].dir;
+    function fmtCurrency(amount, currency) {
+      try {
+        return new Intl.NumberFormat(currentLang() === 'zh-Hans' ? 'zh-CN' : currentLang(), {
+          style: 'currency',
+          currency,
+          maximumFractionDigits: 0,
+        }).format(Math.round(amount));
+      } catch (error) {
+        return `${currency} ${Math.round(amount).toLocaleString()}`;
+      }
+    }
 
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const val = t(key);
-    if (val) el.textContent = val;
-  });
+    async function fetchRates() {
+      try {
+        const response = await fetch('https://api.frankfurter.app/latest?from=EUR');
+        const data = await response.json();
+        exchangeRates = { ...data.rates, EUR: 1 };
+        ratesFetched = true;
+        recalculate();
+      } catch (error) {
+        document.getElementById('exchangeNote').textContent = t('rate_unavailable');
+      }
+    }
 
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
+    function convert(amount, from, to) {
+      if (!ratesFetched || from === to) return null;
+      const fromRate = exchangeRates[from];
+      const toRate = exchangeRates[to];
+      if (!fromRate || !toRate) return null;
+      return (amount / fromRate) * toRate;
+    }
 
-  populateDestinations();
-  recalculate();
-}
+    function populateDestinations() {
+      const select = document.getElementById('destination');
+      const previous = select.value || 'JP';
+      select.innerHTML = '';
+      COUNTRY_ORDER.forEach((code, index) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = t(COUNTRY_KEYS[index]);
+        select.appendChild(option);
+      });
+      select.value = previous;
+    }
 
-function buildLangSwitcher() {
-  const container = document.getElementById('langSwitcher');
-  container.innerHTML = '';
-  Object.entries(langMeta).forEach(([code, meta]) => {
-    const btn = document.createElement('button');
-    btn.className = 'lang-btn';
-    btn.dataset.lang = code;
-    btn.textContent = meta.native;
-    btn.addEventListener('click', () => setLang(code));
-    container.appendChild(btn);
-  });
-}
+    function populateCurrencies() {
+      const select = document.getElementById('homeCurrency');
+      const previous = select.value || 'USD';
+      select.innerHTML = '';
+      HOME_CURRENCIES.forEach((currency) => {
+        const option = document.createElement('option');
+        option.value = currency.code;
+        option.textContent = `${currency.code} (${currency.symbol})`;
+        select.appendChild(option);
+      });
+      select.value = previous;
+    }
 
-// ── Event listeners ──
-function setupEvents() {
-  document.getElementById('destination').addEventListener('change', recalculate);
-  document.getElementById('days').addEventListener('input', recalculate);
-  document.getElementById('homeCurrency').addEventListener('change', recalculate);
+    function recalculate() {
+      const destination = document.getElementById('destination').value;
+      const homeCurrency = document.getElementById('homeCurrency').value;
+      const days = Math.max(1, Math.min(90, parseInt(document.getElementById('days').value, 10) || 1));
+      const country = TRAVEL_COSTS[destination];
+      if (!country) return;
 
-  document.getElementById('daysDown').addEventListener('click', () => {
-    const inp = document.getElementById('days');
-    inp.value = Math.max(1, (parseInt(inp.value) || 1) - 1);
-    recalculate();
-  });
-  document.getElementById('daysUp').addEventListener('click', () => {
-    const inp = document.getElementById('days');
-    inp.value = Math.min(90, (parseInt(inp.value) || 1) + 1);
-    recalculate();
-  });
+      const costs = country[currentStyle];
+      const localCurrency = country.currency;
+      const accommodation = costs.accommodation;
+      const food = costs.food;
+      const transport = costs.transport;
+      const activities = costs.activities;
+      const daily = accommodation + food + transport + activities;
+      const total = daily * days;
 
-  document.querySelectorAll('.style-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentStyle = btn.dataset.style;
+      document.getElementById('amtAcc').textContent = fmtCurrency(accommodation, localCurrency);
+      document.getElementById('amtFood').textContent = fmtCurrency(food, localCurrency);
+      document.getElementById('amtTrans').textContent = fmtCurrency(transport, localCurrency);
+      document.getElementById('amtAct').textContent = fmtCurrency(activities, localCurrency);
+      document.getElementById('dailyTotal').textContent = fmtCurrency(daily, localCurrency);
+      document.getElementById('tripTotalLocal').textContent = fmtCurrency(total, localCurrency);
+
+      document.getElementById('costBar').innerHTML = [
+        { cls:'seg-acc', pct:(accommodation / daily) * 100 },
+        { cls:'seg-food', pct:(food / daily) * 100 },
+        { cls:'seg-trans', pct:(transport / daily) * 100 },
+        { cls:'seg-act', pct:(activities / daily) * 100 },
+      ].map((segment) => `<div class="cost-bar-seg ${segment.cls}" style="width:${segment.pct.toFixed(1)}%"></div>`).join('');
+
+      const totalHome = document.getElementById('tripTotalHome');
+      const note = document.getElementById('exchangeNote');
+
+      if (localCurrency === homeCurrency) {
+        totalHome.textContent = '';
+        note.textContent = '';
+        return;
+      }
+
+      const converted = convert(total, localCurrency, homeCurrency);
+      if (converted === null) {
+        totalHome.textContent = '';
+        note.textContent = t('rate_unavailable');
+        return;
+      }
+
+      totalHome.textContent = `≈ ${fmtCurrency(converted, homeCurrency)}`;
+      const rate = convert(1, localCurrency, homeCurrency);
+      note.textContent = t('rate_note')
+        .replace('{from}', localCurrency)
+        .replace('{rate}', rate.toFixed(rate < 0.01 ? 6 : rate < 1 ? 4 : 2))
+        .replace('{to}', homeCurrency);
+    }
+
+    function setupEvents() {
+      document.getElementById('destination').addEventListener('change', recalculate);
+      document.getElementById('days').addEventListener('input', recalculate);
+      document.getElementById('homeCurrency').addEventListener('change', recalculate);
+
+      document.getElementById('daysDown').addEventListener('click', () => {
+        const input = document.getElementById('days');
+        input.value = Math.max(1, (parseInt(input.value, 10) || 1) - 1);
+        recalculate();
+      });
+
+      document.getElementById('daysUp').addEventListener('click', () => {
+        const input = document.getElementById('days');
+        input.value = Math.min(90, (parseInt(input.value, 10) || 1) + 1);
+        recalculate();
+      });
+
+      document.querySelectorAll('.style-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.style-btn').forEach((item) => item.classList.remove('active'));
+          button.classList.add('active');
+          currentStyle = button.dataset.style;
+          recalculate();
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      populateDestinations();
+      populateCurrencies();
+      setupEvents();
+      fetchRates();
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.fade-in').forEach((element) => observer.observe(element));
+    });
+
+    document.addEventListener('i18n:updated', () => {
+      populateDestinations();
       recalculate();
     });
-  });
-}
-
-// ── Init ──
-document.addEventListener('DOMContentLoaded', () => {
-  populateDestinations();
-  populateCurrencies();
-  buildLangSwitcher();
-  setupEvents();
-  setLang(getPreferredLang());
-  fetchRates();
-});
-</script>
+  </script>
 </body>
 </html>
