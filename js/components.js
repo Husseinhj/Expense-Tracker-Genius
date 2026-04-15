@@ -86,11 +86,19 @@
             <span class="brand-name" data-i18n="app_name">Expense Tracker Genius</span>
           </a>
 
-          <nav class="site-nav" aria-label="Primary navigation">
+          <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
             ${navMarkup}
+            <div class="nav-mobile-actions">
+              <label class="visually-hidden" for="site-language-selector-mobile" data-i18n="Language">Language</label>
+              <select id="site-language-selector-mobile" class="language-select nav-mobile-lang" data-i18n="Language" data-i18n-attr="aria-label">
+                ${languageOptions}
+              </select>
+              <a class="header-button secondary" href="${APP_CLIP_URL}" target="_blank" rel="noreferrer" data-i18n="header_try_app_clip">Try App Clip</a>
+              <a class="header-button primary" href="${APP_STORE_URL}" target="_blank" rel="noreferrer" data-i18n="header_download">Download</a>
+            </div>
           </nav>
 
-          <div class="header-actions">
+          <div class="header-actions header-actions-desktop">
             <label class="visually-hidden" for="site-language-selector" data-i18n="Language">Language</label>
             <select id="site-language-selector" class="language-select" data-i18n="Language" data-i18n-attr="aria-label">
               ${languageOptions}
@@ -98,13 +106,46 @@
             <a class="header-button secondary" href="${APP_CLIP_URL}" target="_blank" rel="noreferrer" data-i18n="header_try_app_clip">Try App Clip</a>
             <a class="header-button primary" href="${APP_STORE_URL}" target="_blank" rel="noreferrer" data-i18n="header_download">Download</a>
           </div>
+
+          <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </header>
     `;
 
-    const selector = host.querySelector('#site-language-selector');
-    if (selector) {
-      selector.value = languages[lang] ? lang : 'en';
+    // Set language on both desktop and mobile selectors
+    host.querySelectorAll('.language-select').forEach(sel => {
+      sel.value = languages[lang] ? lang : 'en';
+    });
+
+    // Hamburger menu toggle
+    const hamburger = host.querySelector('#hamburger-btn');
+    const nav = host.querySelector('#site-nav');
+    if (hamburger && nav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('is-open');
+        hamburger.classList.toggle('is-open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+      // Close menu when a nav link is clicked
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          hamburger.classList.remove('is-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Mobile language selector change handler
+    const mobileLangSel = host.querySelector('#site-language-selector-mobile');
+    if (mobileLangSel) {
+      mobileLangSel.addEventListener('change', (e) => {
+        const newLang = e.target.value;
+        const page = window.location.pathname.split('/').pop() || 'index.html';
+        window.location.href = withLang(page, newLang);
+      });
     }
   }
 

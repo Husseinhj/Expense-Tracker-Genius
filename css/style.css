@@ -237,6 +237,32 @@ a {
   white-space: nowrap;
 }
 
+/* Hamburger button — hidden on desktop, visible on smaller screens */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 60;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile-only actions inside nav (hidden on desktop) */
+.nav-mobile-actions { display: none; }
+
 .site-nav {
   display: flex;
   align-items: center;
@@ -824,10 +850,48 @@ a {
 }
 
 /* ===== Responsive ===== */
+
+/* Collapse to hamburger menu below 1100px */
 @media (max-width: 1100px) {
-  .site-nav a { font-size: 0.8rem; padding: 5px 8px; }
-  .header-button.secondary { display: none; }
-  .brand-name { font-size: 0.85rem; }
+  .hamburger { display: flex; }
+  .header-actions-desktop { display: none; }
+
+  .site-nav {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    left: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 16px 24px 32px;
+    background: rgba(12,12,22,0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    overflow-y: auto;
+    z-index: 55;
+  }
+  .site-nav.is-open { display: flex; }
+  .site-nav a {
+    font-size: 1rem;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+  .nav-mobile-actions .header-button {
+    text-align: center;
+    padding: 12px;
+  }
+  .nav-mobile-lang {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 
   .hero-grid,
   .feature-grid,
@@ -849,9 +913,6 @@ a {
   .section {
     padding: 64px 0;
   }
-
-  .brand-name { display: none; }
-  .site-nav a { font-size: 0.75rem; padding: 4px 6px; }
 
   .hero-actions,
   .footer-inner,
